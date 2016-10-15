@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Four Color Game</string>
+    <string name="puzzle_mode_text">Puzzle Mode</string>
+    <string name="multiplayer_text">Two-Player Mode</string>
+    <string name="vs_ai_text">Vs. Computer Player</string>
+    <string name="start">Start!</string>
+    <string name="color_picker_title">Choose Your Colors:</string>
+    <string name="title_activity_loading_screen">LoadingScreen</string>
+    <string name="loading">Loading...</string>
 </resources>

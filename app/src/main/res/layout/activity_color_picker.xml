@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_picker_title"
+        android:text="@string/color_picker_title"
+        android:textSize="30dp"
+        android:textColor="@color/colorText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/start"
+        android:textColor="@color/colorText"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_picker_start"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/third_color_choice"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/second_color_choice"
+        android:layout_centerHorizontal="true"
+         />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/second_color_choice"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/first_color_choice"
+        android:layout_centerHorizontal="true"
+         />
+
+    <Spinner
+        android:background="@null"
+        android:layout_height="30dp"
+        android:id="@+id/first_color_choice"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/color_picker_title"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent" />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:id="@+id/fourth_color_choice"
+        android:layout_height="30dp"
+        android:layout_below="@+id/third_color_choice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp" />
+</RelativeLayout>
