@@ -39,7 +39,7 @@ public class TitleScreen extends AppCompatActivity {
 
     private void launchColorPicker(int gameType){
         Intent intent = new Intent(TitleScreen.this, ColorPicker.class);
-        intent.putExtra("gameMode", (new Integer(gameType)).toString());
+        intent.putExtra(LoadingScreen.gameMode, (new Integer(gameType)).toString());
         startActivity(intent);
 
     }

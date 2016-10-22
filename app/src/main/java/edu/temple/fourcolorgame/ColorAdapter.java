@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,13 +42,13 @@ public class ColorAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View oldView, ViewGroup parent){
-        LinearLayout layout;
+/*        LinearLayout layout;
 
-        if(oldView!=null) {
+       *//* if(oldView!=null) {
             layout = (LinearLayout) oldView;
         } else {
             layout = new LinearLayout(mContext);
-        }
+        }*/
 
         TextView color = new TextView(mContext);
         try {
@@ -55,12 +56,17 @@ public class ColorAdapter extends BaseAdapter {
         } catch (Exception e) {
             color.setBackgroundColor(Color.WHITE);
         }
+        //color.setLayoutParams( new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
 
-        //TODO fix this, possibly matching the parent layout, not the spinner
-        color.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        final float scale = mContext.getResources().getDisplayMetrics().density;
+        int pixels = (int) (80 * scale + 0.5f);
+        color.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, pixels));
         //color.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        layout.addView(color);
-        return layout;
+        /*layout = new LinearLayout(mContext);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(color);*/
+        return color;
 
     }
 

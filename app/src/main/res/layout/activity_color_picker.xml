@@ -1,20 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/colorPrimary"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/color_picker_layout">
+
+    <Spinner
+        android:background="@null"
+        android:id="@+id/first_color_choice"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/second_color_choice"
+        android:layout_alignStart="@+id/color_picker_title" />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="80dp"
+        android:id="@+id/second_color_choice"
+        android:layout_height="80dp"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/color_picker_title"
+        android:layout_alignEnd="@+id/color_picker_title" />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="80dp"
+        android:id="@+id/third_color_choice"
+        android:layout_height="80dp"
+        android:layout_marginBottom="59dp"
+        android:layout_above="@+id/color_picker_start"
+        android:layout_alignStart="@+id/first_color_choice" />
+
+    <Spinner
+        android:background="@null"
+        android:layout_width="80dp"
+        android:id="@+id/fourth_color_choice"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/third_color_choice"
+        android:layout_alignStart="@+id/second_color_choice" />
 
     <TextView
+        android:text=""
+        android:textColor="@color/colorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/color_picker_title"
-        android:text="@string/color_picker_title"
-        android:textSize="30dp"
-        android:textColor="@color/colorText"
-        android:layout_alignParentTop="true"
+        android:id="@+id/color_pick_bottom_text"
+        android:layout_alignTop="@+id/third_color_choice"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:textColor="@color/colorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_pick_top_text"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/first_color_choice"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
@@ -25,43 +69,33 @@
         android:layout_height="wrap_content"
         android:id="@+id/color_picker_start"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/back_arrow"
+        android:id="@+id/back_arrow"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/color_picker_title"
+        android:text="@string/color_picker_title"
+        android:textSize="30sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@+id/back_arrow"
         android:layout_centerHorizontal="true" />
 
-    <Spinner
-        android:background="@null"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/third_color_choice"
-        android:layout_marginTop="75dp"
-        android:layout_below="@+id/second_color_choice"
-        android:layout_centerHorizontal="true"
-         />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/help_transparent"
+        android:id="@+id/help_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
-    <Spinner
-        android:background="@null"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/second_color_choice"
-        android:layout_marginTop="75dp"
-        android:layout_below="@+id/first_color_choice"
-        android:layout_centerHorizontal="true"
-         />
-
-    <Spinner
-        android:background="@null"
-        android:layout_height="30dp"
-        android:id="@+id/first_color_choice"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/color_picker_title"
-        android:layout_centerHorizontal="true"
-        android:layout_width="match_parent" />
-
-    <Spinner
-        android:background="@null"
-        android:layout_width="match_parent"
-        android:id="@+id/fourth_color_choice"
-        android:layout_height="30dp"
-        android:layout_below="@+id/third_color_choice"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp" />
 </RelativeLayout>

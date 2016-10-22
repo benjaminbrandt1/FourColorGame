@@ -14,13 +14,12 @@
     <color name="black">#000000</color>
 
     <array name="colorChoices">
-        <item>-1</item>
         <item>@color/pink</item>
         <item>@color/light_blue</item>
-        <item>@color/grey</item>
         <item>@color/orange</item>
-        <item>@color/green</item>
         <item>@color/purple</item>
+        <item>@color/grey</item>
+        <item>@color/green</item>
         <item>@color/red</item>
         <item>@color/black</item>
     </array>

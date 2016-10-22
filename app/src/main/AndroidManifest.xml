@@ -20,7 +20,10 @@
         <activity
             android:name=".ColorPicker"
             android:theme="@style/AppTheme" />
-        <activity android:name=".LoadingScreen"></activity>
+        <activity android:name=".LoadingScreen" />
+        <activity android:name=".HelpPopup"
+            android:theme="@style/AppTheme.HelpPopop">
+        </activity>
     </application>
 
 </manifest>
