@@ -9,38 +9,62 @@ import android.widget.Button;
 
 public class TitleScreen extends AppCompatActivity {
 
+    private Button puzzle, comp, multi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
 
-        ((Button)findViewById(R.id.puzzle_mode)).setOnClickListener(new View.OnClickListener() {
+        puzzle = (Button)findViewById(R.id.puzzle_mode);
+        puzzle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchColorPicker(0);
             }
         });
 
-        ((Button)findViewById(R.id.vs_ai_mode)).setOnClickListener(new View.OnClickListener() {
+        comp = (Button)findViewById(R.id.vs_ai_mode);
+        comp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchColorPicker(1);
             }
         });
 
-        ((Button)findViewById(R.id.multiplayer_mode)).setOnClickListener(new View.OnClickListener() {
+        multi=(Button)findViewById(R.id.multiplayer_mode);
+        multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchColorPicker(2);
             }
         });
 
+        findViewById(R.id.help_button).setOnTouchListener(new HelpButtonListener(TitleScreen.this, R.string.help_title_screen));
+
     }
 
     private void launchColorPicker(int gameType){
-        Intent intent = new Intent(TitleScreen.this, ColorPicker.class);
+        Intent intent = new Intent(TitleScreen.this, GameDetails.class);
         intent.putExtra(LoadingScreen.gameMode, (new Integer(gameType)).toString());
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        puzzle.setVisibility(View.INVISIBLE);
+        comp.setVisibility(View.INVISIBLE);
+        multi.setVisibility(View.INVISIBLE);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        puzzle.setVisibility(View.VISIBLE);
+        comp.setVisibility(View.VISIBLE);
+        multi.setVisibility(View.VISIBLE);
     }
 }
