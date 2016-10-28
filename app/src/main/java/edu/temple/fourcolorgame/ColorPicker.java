@@ -47,40 +47,9 @@ public class ColorPicker extends AppCompatActivity {
 
         setTextViews();
 
-       findViewById(R.id.help_button).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setAlpha(0.5f);
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        v.setAlpha(1);
-                        //TODO implement help dialog
-                        startActivity(new Intent(ColorPicker.this, HelpPopup.class));
+       findViewById(R.id.help_button).setOnTouchListener(new HelpButtonListener(ColorPicker.this, R.string.help_color_picker));
 
-                        return true;
-                }
-                return false;
-            }
-        });
-
-        findViewById(R.id.back_arrow).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setAlpha(0.5f);
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        v.setAlpha(1);
-                        onBackPressed();
-
-                        return true;
-                }
-                return false;
-            }
-        });
+        findViewById(R.id.back_arrow).setOnTouchListener(new BackArrowListener(ColorPicker.this));
 
         intent  = new Intent(ColorPicker.this, LoadingScreen.class);
 
