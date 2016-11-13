@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/colorPrimary"
+    tools:context="edu.temple.fourcolorgame.Fragments.ComputerPlayerSkillFragment">
+
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        android:text = "@string/computer_skills"
+        android:id="@+id/computer_skills_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/hard_mode"
+        android:textSize="15sp"
+        android:textColor="@color/colorText"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/computer_skill_hard"
+        android:layout_alignBaseline="@+id/computer_skill_easy"
+        android:layout_alignBottom="@+id/computer_skill_easy"
+        android:layout_alignEnd="@+id/computer_skills_title" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/easy_mode"
+        android:textSize="15sp"
+        android:textColor="@color/colorText"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/computer_skill_easy"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/computer_skills_title" />
+
+</RelativeLayout>

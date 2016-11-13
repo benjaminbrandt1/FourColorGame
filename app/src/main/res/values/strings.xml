@@ -9,4 +9,24 @@
     <string name="loading">Loading...</string>
     <string name="okay">Okay</string>
     <string name="help_color_picker">Click on the squares to choose your colors for the map.\n\nNo two colors can be the same.\n\nPress Start when ready.</string>
+    <string name="help_game_details">Small: 10 regions\nMedium: 15 regions\nLarge: 25 regions\nCustom: Choose the number of regions</string>
+    <string name="help_title_screen">Puzzle Mode: Fill in the map using four colors. Adjacent regions must be different colors
+                                    \n\nVs. Computer: Fill in the most regions with your two colors
+                                    \n\nMultiplayer: Pass and Play - Fill in the most regions with your two colors</string>
+    <string name="back_button_desc">Back Button</string>
+    <string name="help_button_desc">Help Button</string>
+    <string name="map_size">Choose the map size:</string>
+    <string name="small_map">Small</string>
+    <string name="medium_map">Medium</string>
+    <string name="large_map">Large</string>
+    <string name="custom_map">Custom</string>
+    <string name="next">Next</string>
+    <string name="computer_skills">Computer Player Difficulty:</string>
+    <string name="easy_mode">Easy</string>
+    <string name="hard_mode">Hard</string>
+    <string name="regions">Regions:</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

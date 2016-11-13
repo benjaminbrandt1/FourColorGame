@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="440dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    tools:context="edu.temple.fourcolorgame.Fragments.MapChoices"
+    android:layout_height="200dp">
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/custom_map_okay"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/okay"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="80dp"
+        android:layout_alignBaseline="@+id/custom_map_cancel"
+        android:layout_alignBottom="@+id/custom_map_cancel"
+        android:layout_alignEnd="@+id/game_details_title" />
+
+    <TextView
+        android:text="@string/map_size"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_details_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text="@string/regions"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/regions_text"
+        android:layout_marginStart="23dp"
+        android:layout_below="@+id/game_details_title"
+        android:layout_alignStart="@+id/game_details_title"
+        android:layout_marginTop="21dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="10"
+        android:textSize="25sp"
+        android:textColor="@color/colorText"
+        android:ems="10"
+        android:id="@+id/custom_map_num_regions"
+        android:layout_alignBaseline="@+id/regions_text"
+        android:layout_alignBottom="@+id/regions_text"
+        android:layout_toEndOf="@+id/regions_text" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/custom_map_cancel"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/cancel"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="80dp"
+        android:layout_below="@+id/custom_map_num_regions"
+        android:layout_alignStart="@+id/game_details_title"
+        android:layout_marginTop="13dp" />
+
+</RelativeLayout>

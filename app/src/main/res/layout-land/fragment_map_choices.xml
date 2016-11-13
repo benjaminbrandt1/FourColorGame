@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="440dp"
+    android:layout_height="200dp"
+    android:background="@color/colorPrimary"
+    tools:context="edu.temple.fourcolorgame.Fragments.MapChoices">
+
+    <TextView
+        android:text="@string/map_size"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_details_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/small_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/small_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="80dp"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/game_details_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="60dp" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/medium_map"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/medium_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_alignBaseline="@+id/small_map"
+        android:layout_alignBottom="@+id/small_map"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="58dp" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/large_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/large_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="80dp"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/small_map"
+        android:layout_alignStart="@+id/small_map" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/custom_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/custom_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="80dp"
+        android:layout_alignTop="@+id/large_map"
+        android:layout_alignStart="@+id/medium_map" />
+
+</RelativeLayout>

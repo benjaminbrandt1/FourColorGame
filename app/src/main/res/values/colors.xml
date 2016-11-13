@@ -11,7 +11,7 @@
     <color name="green">#44cf03</color>
     <color name="purple">#651ca9</color>
     <color name="red">#cf0520</color>
-    <color name="black">#000000</color>
+    <color name="blue">#2c30ef</color>
 
     <array name="colorChoices">
         <item>@color/pink</item>
@@ -21,7 +21,7 @@
         <item>@color/grey</item>
         <item>@color/green</item>
         <item>@color/red</item>
-        <item>@color/black</item>
+        <item>@color/blue</item>
     </array>
 
 

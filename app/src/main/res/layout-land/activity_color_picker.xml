@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
@@ -86,7 +85,8 @@
         app:srcCompat="@mipmap/back_arrow"
         android:id="@+id/back_arrow"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/back_button_desc" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -94,5 +94,6 @@
         app:srcCompat="@mipmap/help_transparent"
         android:id="@+id/help_button"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/help_button_desc" />
 </RelativeLayout>

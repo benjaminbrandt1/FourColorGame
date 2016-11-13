@@ -78,7 +78,8 @@
         app:srcCompat="@mipmap/back_arrow"
         android:id="@+id/back_arrow"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/back_button_desc"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -88,7 +89,8 @@
         android:textSize="30sp"
         android:textColor="@color/colorText"
         android:layout_below="@+id/back_arrow"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -96,6 +98,7 @@
         app:srcCompat="@mipmap/help_transparent"
         android:id="@+id/help_button"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/help_button_desc"/>
 
 </RelativeLayout>

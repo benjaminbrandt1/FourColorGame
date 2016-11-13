@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TitleScreen"
+            android:name=".Activities.TitleScreen"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +18,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ColorPicker"
+            android:name=".Activities.ColorPicker"
             android:theme="@style/AppTheme" />
-        <activity android:name=".LoadingScreen" />
-        <activity android:name=".HelpPopup"
-            android:theme="@style/AppTheme.HelpPopop">
-        </activity>
+        <activity android:name=".Activities.LoadingScreen" />
+        <activity
+            android:name=".Activities.HelpPopup"
+            android:theme="@style/AppTheme.HelpPopop" />
+        <activity android:name=".Activities.GameDetails" />
+        <activity android:name=".Activities.PuzzleMode"></activity>
     </application>
 
 </manifest>

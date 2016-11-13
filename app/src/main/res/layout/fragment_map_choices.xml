@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:background="@color/colorPrimary"
+    tools:context="edu.temple.fourcolorgame.Fragments.MapChoices">
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/small_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/small_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/game_details_title"
+        android:layout_centerHorizontal="true" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/medium_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/medium_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_below="@+id/small_map"
+        android:layout_alignStart="@+id/small_map"
+        android:layout_marginTop="10dp" />
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/large_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/large_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/medium_map"
+        android:layout_alignStart="@+id/medium_map"
+        android:layout_marginTop="10dp"/>
+
+    <Button style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/custom_map"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/custom_map"
+        android:textColor="@color/colorText"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/large_map"
+        android:layout_alignStart="@+id/large_map"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:text="@string/map_size"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_details_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
