@@ -56,7 +56,7 @@
         android:layout_alignTop="@+id/color_two"
         android:layout_toStartOf="@+id/color_four" />
 
-    <edu.temple.fourcolorgame.Surface
+    <edu.temple.fourcolorgame.Controllers.Surface
         android:id="@+id/game_chart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
