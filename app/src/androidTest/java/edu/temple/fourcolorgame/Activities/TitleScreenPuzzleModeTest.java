@@ -1,4 +1,4 @@
-package edu.temple.fourcolorgame;
+package edu.temple.fourcolorgame.Activities;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import edu.temple.fourcolorgame.Activities.TitleScreen;
+import edu.temple.fourcolorgame.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

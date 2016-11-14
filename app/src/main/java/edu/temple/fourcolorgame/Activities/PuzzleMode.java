@@ -13,8 +13,8 @@ import edu.temple.fourcolorgame.Utils.Intents;
 public class PuzzleMode extends AppCompatActivity {
     private int gameMode, mapSize;
     private int[] colors;
-    private String difficulty;
     private Button colorOne, colorTwo, colorThree, colorFour;
+    private int currentColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,6 @@ public class PuzzleMode extends AppCompatActivity {
         } catch (NumberFormatException e){
             Toast.makeText(PuzzleMode.this, "Invalid Map Size", Toast.LENGTH_SHORT).show();
         }
-        //Get Comp Difficulty
-        if(gameMode == Intents.comp){
-            difficulty = receivedIntent.getStringExtra(Intents.compPlayerSkill);
-        }
         //Get Colors
         try {
             colors[0] = Integer.parseInt(receivedIntent.getStringExtra(Intents.firstColor));
@@ -67,13 +63,13 @@ public class PuzzleMode extends AppCompatActivity {
 
     }
 
-    private void setUpColorButton(int index, Button button){
+    private void setUpColorButton(final int index, Button button){
         button.setBackgroundColor(colors[index]);
-/*        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                currentColor = colors[index];
             }
-        });*/
+        });
     }
 }

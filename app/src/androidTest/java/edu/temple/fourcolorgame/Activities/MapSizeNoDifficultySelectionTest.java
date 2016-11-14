@@ -1,4 +1,4 @@
-package edu.temple.fourcolorgame;
+package edu.temple.fourcolorgame.Activities;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import edu.temple.fourcolorgame.Activities.TitleScreen;
+import edu.temple.fourcolorgame.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -29,39 +29,58 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class TitleScreenTwoPlayerTest {
+public class MapSizeNoDifficultySelectionTest {
 
     @Rule
     public ActivityTestRule<TitleScreen> mActivityTestRule = new ActivityTestRule<>(TitleScreen.class);
 
     @Test
-    public void titleScreenTwoPlayerTest() {
+    public void mapSizeNoDifficultySelectionTest() {
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.multiplayer_mode), withText("Two-Player Mode"),
+                allOf(withId(R.id.puzzle_mode), withText("Puzzle Mode"),
                         withParent(allOf(withId(R.id.activity_title_screen),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         appCompatButton.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.color_pick_top_text), withText("Player One"),
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.game_details_next), withText("Next"),
+                        withParent(allOf(withId(R.id.activity_game_details),
+                                withParent(withId(android.R.id.content)))),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction button = onView(
+                allOf(withId(R.id.custom_map),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withId(R.id.map_choices_panel),
                                         0),
+                                4),
+                        isDisplayed()));
+        button.check(matches(isDisplayed()));
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.medium_map), withText("Medium"), isDisplayed()));
+        appCompatButton3.perform(click());
+
+        ViewInteraction appCompatButton4 = onView(
+                allOf(withId(R.id.game_details_next), withText("Next"),
+                        withParent(allOf(withId(R.id.activity_game_details),
+                                withParent(withId(android.R.id.content)))),
+                        isDisplayed()));
+        appCompatButton4.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.color_picker_title), withText("Choose Your Colors:"),
+                        childAtPosition(
+                                allOf(withId(R.id.color_picker_layout),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
                                 2),
                         isDisplayed()));
-        textView.check(matches(withText("Player One")));
-
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.color_pick_bottom_text), withText("Player Two"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        textView2.check(matches(withText("Player Two")));
+        textView.check(matches(withText("Choose Your Colors:")));
 
     }
 

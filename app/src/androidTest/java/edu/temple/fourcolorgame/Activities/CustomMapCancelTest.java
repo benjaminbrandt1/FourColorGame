@@ -1,7 +1,6 @@
-package edu.temple.fourcolorgame;
+package edu.temple.fourcolorgame.Activities;
 
 
-import android.os.SystemClock;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -17,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import edu.temple.fourcolorgame.Activities.TitleScreen;
+import edu.temple.fourcolorgame.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -30,41 +29,47 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class TitleScreenVsComputerTest {
+public class CustomMapCancelTest {
 
     @Rule
     public ActivityTestRule<TitleScreen> mActivityTestRule = new ActivityTestRule<>(TitleScreen.class);
 
     @Test
-    public void titleScreenVsComputerTest() {
+    public void customMapCancelTest() {
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.vs_ai_mode), withText("Vs. Computer Player"),
+                allOf(withId(R.id.puzzle_mode), withText("Puzzle Mode"),
                         withParent(allOf(withId(R.id.activity_title_screen),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         appCompatButton.perform(click());
 
-        SystemClock.sleep(5000);
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.custom_map), withText("Custom"), isDisplayed()));
+        appCompatButton2.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.color_pick_top_text), withText("You"),
+        ViewInteraction editText = onView(
+                allOf(withId(R.id.custom_map_num_regions), withText("10"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withId(R.id.map_choices_panel),
                                         0),
                                 2),
                         isDisplayed()));
-        textView.check(matches(withText("You")));
+        editText.check(matches(withText("10")));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.color_pick_bottom_text), withText("Computer"),
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.custom_map_cancel), withText("Cancel"), isDisplayed()));
+        appCompatButton3.perform(click());
+
+        ViewInteraction button = onView(
+                allOf(withId(R.id.custom_map),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withId(R.id.map_choices_panel),
                                         0),
-                                5),
+                                4),
                         isDisplayed()));
-        textView2.check(matches(withText("Computer")));
+        button.check(matches(isDisplayed()));
 
     }
 
