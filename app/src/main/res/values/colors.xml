@@ -12,8 +12,8 @@
     <color name="purple">#651ca9</color>
     <color name="red">#cf0520</color>
     <color name="blue">#2c30ef</color>
-    <color name="default_region">#f2f0f0</color>
-    <color name="edge_color">#000000</color>
+    <color name="default_region">#fff2f0f0</color>
+    <color name="edge_color">#ff000000</color>
 
     <array name="colorChoices">
         <item>@color/pink</item>

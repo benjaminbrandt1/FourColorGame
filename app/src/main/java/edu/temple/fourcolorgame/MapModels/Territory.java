@@ -1,5 +1,8 @@
 package edu.temple.fourcolorgame.MapModels;
 
+import android.content.Context;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.R;
@@ -47,10 +50,10 @@ public class Territory implements Comparable<Territory>{
         this.includedPoints = includedPoints;
     }
 
-    public Territory(Point base){
+    public Territory(Point base, int color){
 
         this.base = base;
-        color = R.color.default_region;
+        this.color = color;
         includedPoints = new ArrayList<>();
         size = includedPoints.size();
     }

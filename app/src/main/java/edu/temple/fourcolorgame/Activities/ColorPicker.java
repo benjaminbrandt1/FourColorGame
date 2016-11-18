@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.Utils.BackArrowListener;
 import edu.temple.fourcolorgame.Utils.ColorAdapter;
+import edu.temple.fourcolorgame.Utils.GameInformation;
 import edu.temple.fourcolorgame.Utils.HelpButtonListener;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
@@ -24,26 +26,24 @@ import edu.temple.fourcolorgame.Utils.Intents;
  */
 
 public class ColorPicker extends AppCompatActivity {
-    private int gameMode;
-    private int mapSize;
-    private String difficulty;
     private Intent intent;
     private ArrayList<Integer> colorChoices;
     private Integer[] userPicks;
     private int[] positions;
     private Button startButton;
+    private GameInformation gameInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_picker);
 
+        getGameInformation();;
+
         startButton = (Button)findViewById(R.id.color_picker_start);
 
         userPicks = new Integer[4];
         positions = new int[4];
-
-        getGameData();
 
         setTextViews();
 
@@ -68,19 +68,18 @@ public class ColorPicker extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mode = (new Integer(gameMode)).toString();
-                intent.putExtra(Intents.gameMode, mode);
-                intent.putExtra(Intents.mapChoice, (new Integer(mapSize)).toString());
-                if(gameMode== Intents.comp){
-                    intent.putExtra(Intents.compPlayerSkill, difficulty);
-                }
-                intent.putExtra(Intents.firstColor, userPicks[0].toString());
-                intent.putExtra(Intents.secondColor, userPicks[1].toString());
-                intent.putExtra(Intents.thirdColor, userPicks[2].toString());
-                intent.putExtra(Intents.fourthColor, userPicks[3].toString());
+                gameInformation.setColors(userPicks);
+                intent.putExtra(Intents.gameInformation, gameInformation);
                 startActivity(intent);
             }
         });
+
+    }
+    private void getGameInformation(){
+        Intent receivedIntent = getIntent();
+        gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
+        Log.d("gameInfo", String.valueOf(gameInformation.getGameMode()));
+        Log.d("gameInfo", String.valueOf(gameInformation.getMapSize()));
 
     }
 
@@ -125,36 +124,15 @@ public class ColorPicker extends AppCompatActivity {
 
     }
 
-    private void getGameData(){
-        Intent receivedIntent = getIntent();
-        //Get Game Mode
-        String data = receivedIntent.getStringExtra(Intents.gameMode);
-        try{
-            gameMode = Integer.parseInt(data);
-        } catch (NumberFormatException e){
-            Toast.makeText(ColorPicker.this, "Invalid Game Mode", Toast.LENGTH_SHORT).show();
-        }
-        //Get Map Size
-        try{
-            mapSize = Integer.parseInt(receivedIntent.getStringExtra(Intents.mapChoice));
-        } catch (NumberFormatException e){
-            Toast.makeText(ColorPicker.this, "Invalid Map Size", Toast.LENGTH_SHORT).show();
-        }
-        //Get Comp Difficulty
-        if(gameMode == Intents.comp){
-            difficulty = receivedIntent.getStringExtra(Intents.compPlayerSkill);
-        }
-
-    }
 
     private void setTextViews(){
         TextView top = (TextView)findViewById(R.id.color_pick_top_text);
         TextView bottom = (TextView)findViewById(R.id.color_pick_bottom_text);
 
-        if(gameMode == 1){
+        if(gameInformation.getGameMode() == 1){
             top.setText("You");
             bottom.setText("Computer");
-        } else if (gameMode == 2){
+        } else if (gameInformation.getGameMode() == 2){
             top.setText("Player One");
             bottom.setText("Player Two");
         }

@@ -26,6 +26,7 @@
     <string name="hard_mode">Hard</string>
     <string name="regions">Regions:</string>
     <string name="cancel">Cancel</string>
+    <string name="invalidMove">Invalid Move!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import edu.temple.fourcolorgame.Utils.BackArrowListener;
 import edu.temple.fourcolorgame.Fragments.ComputerPlayerSkillFragment;
 import edu.temple.fourcolorgame.Fragments.CustomMapPicker;
+import edu.temple.fourcolorgame.Utils.GameInformation;
 import edu.temple.fourcolorgame.Utils.HelpButtonListener;
 import edu.temple.fourcolorgame.Fragments.MapChoices;
 import edu.temple.fourcolorgame.R;
@@ -21,8 +22,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 
 public class GameDetails extends AppCompatActivity implements ComputerPlayerSkillFragment.SkillFragmentListener, MapChoices.MapChoiceListener,
         CustomMapPicker.CustomMapListener {
-    private int gameMode;
-
+    private GameInformation gameInformation;
     private Intent intent;
     private Button nextButton;
     private MapChoices choicesFragment;
@@ -32,12 +32,12 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_details);
 
-        getGameMode();
+        getGameInformation();
 
         intent = new Intent(GameDetails.this, ColorPicker.class);
 
 
-        if(gameMode== Intents.comp){
+        if(gameInformation.getGameMode()== Intents.comp){
             getFragmentManager().beginTransaction()
                     .replace( R.id.computer_player_skill_fragment, ComputerPlayerSkillFragment.newInstance())
                     .commit();
@@ -60,32 +60,27 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intent.getStringExtra(Intents.mapChoice)==null){
+                if (gameInformation.getMapSize() == -1000){
                     Toast.makeText(GameDetails.this, "You must choose a map size", Toast.LENGTH_SHORT).show();
-                } else if (gameMode == Intents.comp && intent.getStringExtra(Intents.compPlayerSkill) == null){
+                } else if (gameInformation.getGameMode() == Intents.comp && gameInformation.getDifficulty() == null){
                     Toast.makeText(GameDetails.this, "You must choose a computer player difficulty", Toast.LENGTH_SHORT).show();
                 } else {
-                    intent.putExtra(Intents.gameMode, (new Integer(gameMode)).toString());
+                    intent.putExtra(Intents.gameInformation, gameInformation);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private void getGameMode(){
+    private void getGameInformation(){
         Intent receivedIntent = getIntent();
-        String data = receivedIntent.getStringExtra(Intents.gameMode);
-        try{
-            gameMode = Integer.parseInt(data);
-        } catch (NumberFormatException e){
-            Toast.makeText(GameDetails.this, "Invalid Game Mode", Toast.LENGTH_SHORT).show();
-        }
+        gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
     }
 
     @Override
     public void updateMapChoice(String string){
         if(Integer.parseInt(string) != -1) {
-            intent.putExtra(Intents.mapChoice, string);
+            gameInformation.setMapSize(Integer.parseInt(string));
         } else {
             getFragmentManager().beginTransaction()
                     .replace(R.id.map_choices_panel, CustomMapPicker.newInstance())
@@ -95,7 +90,7 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
 
     @Override
     public void chooseSkill(String string){
-        intent.putExtra(Intents.compPlayerSkill, string);
+        gameInformation.setDifficulty(string);
     }
 
     @Override
@@ -108,7 +103,7 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
 
     @Override
     public void customMapSelection(String size) {
-        intent.putExtra(Intents.mapChoice, size);
+        gameInformation.setMapSize(Integer.parseInt(size));
         replaceMapPanel(choicesFragment);
         choicesFragment.setCustomSelected();
     }
@@ -116,7 +111,7 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
     @Override
     public void customMapCancel() {
         replaceMapPanel(MapChoices.newInstance());
-        intent.putExtra(Intents.mapChoice, (String)null);
+        gameInformation.setMapSize(-1000);
 
     }
 

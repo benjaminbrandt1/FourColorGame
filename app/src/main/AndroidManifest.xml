@@ -25,7 +25,11 @@
             android:name=".Activities.HelpPopup"
             android:theme="@style/AppTheme.HelpPopop" />
         <activity android:name=".Activities.GameDetails" />
-        <activity android:name=".Activities.PuzzleMode"></activity>
+        <activity
+            android:name=".Activities.PuzzleMode"
+            android:screenOrientation="portrait"
+            >
+        </activity>
     </application>
 
 </manifest>

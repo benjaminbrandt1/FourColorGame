@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import edu.temple.fourcolorgame.Utils.GameInformation;
 import edu.temple.fourcolorgame.Utils.HelpButtonListener;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
@@ -13,11 +14,14 @@ import edu.temple.fourcolorgame.Utils.Intents;
 public class TitleScreen extends AppCompatActivity {
 
     private Button puzzle, comp, multi;
+    private GameInformation gameInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
+
+        gameInformation = new GameInformation();
 
         puzzle = (Button)findViewById(R.id.puzzle_mode);
         puzzle.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +53,9 @@ public class TitleScreen extends AppCompatActivity {
 
     //Start the GameDetails activity
     private void launchGameDetails(int gameType){
+        gameInformation.setGameMode(gameType);
         Intent intent = new Intent(TitleScreen.this, GameDetails.class);
-        intent.putExtra(Intents.gameMode, (new Integer(gameType)).toString());
+        intent.putExtra(Intents.gameInformation, gameInformation);
         startActivity(intent);
 
     }

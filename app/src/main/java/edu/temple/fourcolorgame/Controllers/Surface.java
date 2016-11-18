@@ -26,17 +26,20 @@ public class Surface extends SurfaceView implements SurfaceHolder.Callback {
     public Surface(Context context){
         super(context);
         construct(context);
+        bitmap = null;
 
     }
 
     public Surface(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
         construct(context);
+        bitmap = null;
     }
 
     public Surface(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         construct(context);
+        bitmap = null;
     }
 
     @Override

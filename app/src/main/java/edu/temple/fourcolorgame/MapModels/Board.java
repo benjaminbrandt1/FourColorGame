@@ -1,11 +1,16 @@
 package edu.temple.fourcolorgame.MapModels;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.temple.fourcolorgame.Controllers.BoardLogic;
 import edu.temple.fourcolorgame.R;
+import edu.temple.fourcolorgame.Utils.Intents;
 
 /**
  * Created by Ben on 11/13/2016.
@@ -13,30 +18,45 @@ import edu.temple.fourcolorgame.R;
 
 //Model for the game board, represented as 2-d arrays with method to translate into bitmap
 public class Board {
-    private int numTerritories, width, height, backgroundColor, edgeColor;
+    private int numTerritories;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    private int width;
+    private int height;
+    private int backgroundColor;
+    private int edgeColor;
     private int[][] board, edges, adjacencyMatrix;
     private ArrayList<Territory> territories;
     private ArrayList<Point> basePoints;
     int[] colors;
+    Context context;
 
-    public Board(int numTerritories, int width, int height, int[] colors){
+    public Board(int numTerritories, int width, int height, int[] colors, Context context){
+        this.context = context;
         this.colors = colors;
         this.numTerritories = numTerritories;
         this.width = width;
         this.height = height;
-        backgroundColor = R.color.default_region;
-        edgeColor = R.color.edge_color;
+        backgroundColor = context.getResources().getColor(R.color.default_region);
+        edgeColor = context.getResources().getColor(R.color.edge_color);
 
         //Build game board
-        basePoints = BoardLogic.getBasePoints(this.numTerritories, this.width, this.height);
+        basePoints = BoardLogic.generateBasePoints(this.numTerritories, this.width, this.height);
         board = new int[this.height][this.width];
         ArrayList<Point>corners = getCorners();
         BoardLogic.build(board, basePoints, corners);
 
         //Retrieve list of edges and adjacency matrix for board
-        ArrayList<int[][]> edgesAndAdjacency = BoardLogic.generateEdgesAndAdjacency(board, numTerritories);
-        adjacencyMatrix = edgesAndAdjacency.get(0);
-        edges = edgesAndAdjacency.get(1);
+        HashMap<String, int[][]> edgesAndAdjacency = BoardLogic.generateEdgesAndAdjacency(board, numTerritories);
+        adjacencyMatrix = edgesAndAdjacency.get(BoardLogic.adjacencyKey);
+        edges = edgesAndAdjacency.get(BoardLogic.edgeKey);
 
         territories = new ArrayList<>();
         fillTerritories();
@@ -45,9 +65,13 @@ public class Board {
 
     private ArrayList<Point> getCorners(){
         ArrayList<Point> corners = new ArrayList<>();
+        //Bottom left
         corners.add(new Point(0, 0));
+        //Bottom right
         corners.add(new Point(width-1, 0));
+        //Top right
         corners.add(new Point(width-1, height-1));
+        //Bottom left
         corners.add(new Point(0, height-1));
 
         return corners;
@@ -56,7 +80,7 @@ public class Board {
     private void fillTerritories(){
         //Create a territory for each base point
         for(int i = 0; i< basePoints.size(); i++){
-            territories.add(new Territory(basePoints.get(i)));
+            territories.add(new Territory(basePoints.get(i), backgroundColor));
         }
         //add included points for each territory
         for (int y = 0; y < height; y++){
@@ -128,15 +152,22 @@ public class Board {
         return territory.getSize();
     }
 
-    public boolean isValidMove(Point p, int color){
+    public boolean isValidMove(Point p, int color, int gameMode){
         if(color == backgroundColor){ //unclaimed territory
             return true;
         } else {
             int currentColor = territories.get(board[p.getY()][p.getX()]).getColor();
-            if(currentColor != backgroundColor){ //claimed territory
+            Log.d("FALSECOLOR", String.valueOf(color));
+            Log.d("FALSECOLOR", String.valueOf(currentColor));
+            //Log.d("FALSECOLOR", String.valueOf(backgroundColor));
+            if(currentColor == color){ //claimed but same color
+                if(gameMode == Intents.puzzle) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (currentColor != backgroundColor){ //claimed territory
                 return false;
-            } else if (currentColor == color){ //claimed, but same color
-                return true;
             }
 
             //Check adjacency list for territory to make sure no neighbors are the target color
@@ -144,12 +175,13 @@ public class Board {
             for(int i = 0; i<adjacencyList.length; i++){
                 if(adjacencyList[i] == 1){
                     if(territories.get(i).getColor() == color){
+                        Log.d("FALSECOLOR", "2");
                         return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     //Check to see if game over

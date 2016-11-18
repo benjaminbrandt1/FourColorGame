@@ -14,9 +14,10 @@ public class Intents {
     public static final String easyMode = "easy";
     public static final String hardMode = "hard";
     public static final String compPlayerSkill = "skill";
-    public static final int smallMap = 10;
-    public static final int mediumMap = 15;
-    public static final int largeMap = 25;
+    public static final int smallMap = 15;
+    public static final int mediumMap = 20;
+    public static final int largeMap = 30;
     public static final int customMap = -1;
     public static final String mapChoice = "mapChoice";
+    public static final String gameInformation = "information";
 }
