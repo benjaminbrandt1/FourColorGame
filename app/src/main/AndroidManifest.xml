@@ -3,6 +3,7 @@
     package="edu.temple.fourcolorgame">
 
     <application
+        android:name=".Utils.BoardStorage"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.TitleScreen"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,17 +21,22 @@
         </activity>
         <activity
             android:name=".Activities.ColorPicker"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
         <activity android:name=".Activities.LoadingScreen" />
         <activity
             android:name=".Activities.HelpPopup"
             android:theme="@style/AppTheme.HelpPopop" />
-        <activity android:name=".Activities.GameDetails" />
+        <activity
+            android:name=".Activities.GameDetails"
+            android:launchMode="singleTask" />
         <activity
             android:name=".Activities.PuzzleMode"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.TwoPlayerMode"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.VsComputerMode"></activity>
     </application>
 
 </manifest>

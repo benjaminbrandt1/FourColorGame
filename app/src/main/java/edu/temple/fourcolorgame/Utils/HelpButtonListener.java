@@ -30,6 +30,7 @@ public class HelpButtonListener implements View.OnTouchListener{
                 v.setAlpha(1);
                 Intent intent = new Intent(context, HelpPopup.class);
                 intent.putExtra(helpText, (new Integer(textID)).toString());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 context.startActivity(intent);
 
                 return true;

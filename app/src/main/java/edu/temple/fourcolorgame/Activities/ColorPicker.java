@@ -28,7 +28,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 public class ColorPicker extends AppCompatActivity {
     private Intent intent;
     private ArrayList<Integer> colorChoices;
-    private Integer[] userPicks;
+    private int[] userPicks;
     private int[] positions;
     private Button startButton;
     private GameInformation gameInformation;
@@ -42,7 +42,7 @@ public class ColorPicker extends AppCompatActivity {
 
         startButton = (Button)findViewById(R.id.color_picker_start);
 
-        userPicks = new Integer[4];
+        userPicks = new int[4];
         positions = new int[4];
 
         setTextViews();
@@ -70,6 +70,7 @@ public class ColorPicker extends AppCompatActivity {
             public void onClick(View v) {
                 gameInformation.setColors(userPicks);
                 intent.putExtra(Intents.gameInformation, gameInformation);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
@@ -130,11 +131,11 @@ public class ColorPicker extends AppCompatActivity {
         TextView bottom = (TextView)findViewById(R.id.color_pick_bottom_text);
 
         if(gameInformation.getGameMode() == 1){
-            top.setText("You");
-            bottom.setText("Computer");
+            top.setText(R.string.you);
+            bottom.setText(R.string.computer);
         } else if (gameInformation.getGameMode() == 2){
-            top.setText("Player One");
-            bottom.setText("Player Two");
+            top.setText(R.string.player_one);
+            bottom.setText(R.string.player_two);
         }
     }
 

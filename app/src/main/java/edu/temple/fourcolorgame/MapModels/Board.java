@@ -33,6 +33,11 @@ public class Board {
     private int backgroundColor;
     private int edgeColor;
     private int[][] board, edges, adjacencyMatrix;
+
+    public ArrayList<Territory> getTerritories() {
+        return territories;
+    }
+
     private ArrayList<Territory> territories;
     private ArrayList<Point> basePoints;
     int[] colors;
@@ -136,7 +141,6 @@ public class Board {
         //Get the selected territory
         int index = board[p.getY()][p.getX()];
         Territory territory = territories.get(index);
-        //TODO Make sure this is only during puzzle mode
         if(color == territory.getColor()){
             color = backgroundColor;
         }
@@ -184,7 +188,7 @@ public class Board {
         return true;
     }
 
-    //Check to see if game over
+    //Check to see if point can potentially hold this color
     public boolean isValidEndState(Point p, int color){
         if(color == backgroundColor) {
             return true;
@@ -204,7 +208,7 @@ public class Board {
                 }
             }
         }
-        return false;
+        return true;
     }
 
     //Test to see if every territory has been colored
@@ -222,6 +226,7 @@ public class Board {
     public boolean noMovesAvailable(int color){
         for(int i = 0; i<territories.size(); i++){
             Territory t = territories.get(i);
+            Log.d("Territory", String.valueOf(i));
             if(t.getColor() == backgroundColor){
                 if(isValidEndState(t.getBase(), color)){
                     return false;

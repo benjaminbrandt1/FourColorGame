@@ -1,5 +1,7 @@
 package edu.temple.fourcolorgame.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,32 +9,33 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import edu.temple.fourcolorgame.Controllers.Surface;
 import edu.temple.fourcolorgame.MapModels.Board;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;
+import edu.temple.fourcolorgame.Utils.BoardStorage;
 import edu.temple.fourcolorgame.Utils.GameInformation;
+import edu.temple.fourcolorgame.Utils.GameOverDialog;
+import edu.temple.fourcolorgame.Utils.HomeButtonListener;
 import edu.temple.fourcolorgame.Utils.Intents;
 
 public class PuzzleMode extends AppCompatActivity {
-    private int gameMode, mapSize;
+    private int gameMode;
     private int[] colors;
     private Button colorOne, colorTwo, colorThree, colorFour;
     private int currentColor;
     private Board board;
     private Surface surface;
     private GameInformation gameInformation;
+    private boolean gameOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_mode);
+        findViewById(R.id.home_button).setOnTouchListener(new HomeButtonListener(PuzzleMode.this));
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -43,7 +46,7 @@ public class PuzzleMode extends AppCompatActivity {
         colors = new int[4];
         getGameInformation();
 
-        board = new Board(mapSize, width, height, colors, PuzzleMode.this);
+        board = ((BoardStorage)getApplication()).getBoard();
         surface = (Surface)findViewById(R.id.game_chart);
 
         surface.setBitmap(board.createBitmap());
@@ -71,7 +74,6 @@ public class PuzzleMode extends AppCompatActivity {
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
         gameMode = gameInformation.getGameMode();
-        mapSize = gameInformation.getMapSize();
         for(int i = 0; i<4; i++){
             colors[i] = (gameInformation.getColors())[i];
         }
@@ -101,6 +103,10 @@ public class PuzzleMode extends AppCompatActivity {
             Point click = new Point(x, y);
             Log.d("ClickedPuzzle", String.valueOf(x) + " " + String.valueOf(y));
 
+            if(gameOver){
+                return false;
+            }
+
             if(x >= board.getWidth() || y >= board.getHeight()){
                 return false;
             }
@@ -113,8 +119,11 @@ public class PuzzleMode extends AppCompatActivity {
             }
 
             if(board.isFilledOut()){
-                //TODO YOU WIN DIALOG
-                Toast.makeText(PuzzleMode.this, "YOU WIN DUDE", Toast.LENGTH_LONG).show();
+                gameOver = true;
+                GameOverDialog dialog = new GameOverDialog(getResources().getString(R.string.game_over),
+                        getResources().getString(R.string.you_win), PuzzleMode.this, gameInformation);
+                dialog.show();
+
             }
 
 

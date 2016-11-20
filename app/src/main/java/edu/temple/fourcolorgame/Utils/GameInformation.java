@@ -12,13 +12,13 @@ public class GameInformation implements Parcelable {
     private int gameMode;
     private int mapSize;
     private String difficulty;
-    private Integer[] colors;
+    private int[] colors;
 
     public GameInformation(){
         gameMode = -1;
         mapSize = -1000;
         difficulty = null;
-        colors = new Integer[]{-1, -1, -1, -1};
+        colors = new int[]{-1, -1, -1, -1};
 
     }
 
@@ -26,7 +26,7 @@ public class GameInformation implements Parcelable {
 
     //Build GameInformation object from parcel
     protected GameInformation(Parcel in) {
-        this.colors = new Integer[4];
+        this.colors = new int[4];
         String[] data = new String[7];
 
         in.readStringArray(data);
@@ -96,11 +96,11 @@ public class GameInformation implements Parcelable {
         this.difficulty = difficulty;
     }
 
-    public Integer[] getColors() {
+    public int[] getColors() {
         return colors;
     }
 
-    public void setColors(Integer[] colors) {
+    public void setColors(int[] colors) {
         if(colors.length == 4) {
             this.colors = colors;
         }
