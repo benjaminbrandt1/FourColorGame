@@ -9,12 +9,14 @@ import java.util.Map;
 
 import edu.temple.fourcolorgame.MapModels.BasePoint;
 import edu.temple.fourcolorgame.MapModels.Point;
+import edu.temple.fourcolorgame.MapModels.Rectangle;
 import edu.temple.fourcolorgame.Utils.PointAndDistance;
 
 /**
  * Created by Ben on 11/13/2016.
  */
 
+//Contains logic for building game boards
 public class BoardLogic {
     public static final String edgeKey = "edges";
     public static final String adjacencyKey = "adj";
@@ -51,6 +53,7 @@ public class BoardLogic {
         return basePoints;
     }
 
+    //Returns a random point --> Used to randomly distribute territories on the map
     private static Point getRandomPoint(int height, int width, int territory) {
         //generate random ordered pair for location of territory
         int x = (int) (Math.random() * width);
@@ -120,6 +123,7 @@ public class BoardLogic {
         }
     }
 
+    //Finds the territory that includes the given corner point
     private static int getCornerTerritory(ArrayList<Point> basePoints, Point corner){
         PointAndDistance pnd = getNearestNeighbor(basePoints, corner);
         BasePoint cornerTerritory = (BasePoint)pnd.getPoint();
@@ -235,66 +239,24 @@ public class BoardLogic {
         return adjacentTerritories;
     }
 
-    //Takes the four corners of a rectangle and divides the rectangle into four smaller pieces
-    //Used to recursively divide and fill board in build()
+    //Takes a rectangle and divides the rectangle into four smaller pieces
+    //New rectangles used to recursively subdivide the board in build()
     private static void divideCorners(int[][] board, ArrayList<Point> basePoints, ArrayList<Point> corners){
-        Point topLeft = corners.get(0);
-        Point topRight = corners.get(1);
-        Point bottomRight = corners.get(2);
-        Point bottomLeft = corners.get(3);
 
-        //TODO Possibly Remove The +1s and definitely rework this sections -> create a method and a for loop?
-        ArrayList<Point> topLeftRectangle = new ArrayList<Point>();
-        topLeftRectangle.add(new Point(topLeft.getX(), topLeft.getY()));
-        topLeftRectangle.add(new Point((topLeft.getX() + topRight.getX()) / 2, topLeft.getY()));
-        topLeftRectangle.add(new Point((topLeft.getX() + bottomRight.getX()) / 2,
-                (topLeft.getY() + bottomRight.getY()) / 2));
-        topLeftRectangle.add(new Point(topLeft.getX(), (topLeft.getY() + bottomLeft.getY()) / 2));
+        Rectangle rectangle = new Rectangle(corners);
 
-        ArrayList<Point> topRightRectangle = new ArrayList<Point>();
-        topRightRectangle.add(new Point((topLeft.getX() + topRight.getX()) / 2 + 1, topLeft.getY()));
-        topRightRectangle.add(new Point(topRight.getX(), topRight.getY()));
-        topRightRectangle.add(new Point(topRight.getX(), (topRight.getY() + bottomRight.getY()) / 2));
-        topRightRectangle.add(new Point((topLeft.getX() + bottomRight.getX()) / 2 + 1,
-                (topLeft.getY() + bottomRight.getY()) / 2));
+        Rectangle topLeftRectangle = rectangle.subdivideTopLeft();
 
-        ArrayList<Point> bottomRightRectangle = new ArrayList<Point>();
-        bottomRightRectangle.add(new Point((topLeft.getX() + bottomRight.getX()) / 2 + 1,
-                (topLeft.getY() + bottomRight.getY()) / 2 + 1));
-        bottomRightRectangle.add(new Point(bottomRight.getX(), (topRight.getY() + bottomRight.getY()) / 2 + 1));
-        bottomRightRectangle.add(new Point(bottomRight.getX(), bottomRight.getY()));
-        bottomRightRectangle.add(new Point((bottomLeft.getX() + bottomRight.getX()) / 2 + 1, bottomRight.getY()));
+        Rectangle topRightRectangle = rectangle.subdivideTopRight();
 
-        ArrayList<Point> bottomLeftRectangle = new ArrayList<Point>();
-        bottomLeftRectangle.add(new Point(bottomLeft.getX(), (bottomLeft.getY() + topLeft.getY()) / 2 + 1));
-        bottomLeftRectangle.add(new Point((bottomLeft.getX() + bottomRight.getX()) / 2,
-                (bottomLeft.getY() + topLeft.getY()) / 2 + 1));
-        bottomLeftRectangle.add(new Point((bottomLeft.getX() + bottomRight.getX()) / 2, bottomLeft.getY()));
-        bottomLeftRectangle.add(new Point(bottomLeft.getX(), bottomLeft.getY()));
+        Rectangle bottomRightRectangle = rectangle.subdivideBottomRight();
 
-        build(board, basePoints, topLeftRectangle);
-        build(board, basePoints, topRightRectangle);
-        build(board, basePoints, bottomRightRectangle);
-        build(board, basePoints, bottomLeftRectangle);
+        Rectangle bottomLeftRectangle = rectangle.subdivideBottomLeft();
 
-    }
-
-    public static int[][] getBoard(ArrayList<Point> basePoints, int width, int height){
-        int[][] board = new int[height][width];
-        int y = 0;
-        int x = 0;
-
-        while(y < height){
-            while(x < width){
-                Point p = new Point(x, y);
-                PointAndDistance pnd = getNearestNeighbor(basePoints, p);
-                BasePoint neighbor = (BasePoint)pnd.getPoint();
-                board[y][x] = neighbor.getTerritory();
-                x++;
-            }
-            y++;
-        }
-        return board;
+        build(board, basePoints, topLeftRectangle.getCorners());
+        build(board, basePoints, topRightRectangle.getCorners());
+        build(board, basePoints, bottomRightRectangle.getCorners());
+        build(board, basePoints, bottomLeftRectangle.getCorners());
 
     }
 
