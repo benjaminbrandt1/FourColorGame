@@ -29,11 +29,11 @@ import edu.temple.fourcolorgame.Utils.HomeButtonListener;
 import edu.temple.fourcolorgame.Utils.Intents;
 import edu.temple.fourcolorgame.Utils.Turn;
 
+//Activity for handling user input and gameplay for Vs Computer mode
 public class VsComputerMode extends AppCompatActivity {
 
     private int gameMode, skippedTurnCount;
     private int[] colors;
-    private Button colorOne, colorTwo, colorThree, colorFour;
     private int currentColor;
     private Board board;
     private Surface surface;
@@ -49,21 +49,24 @@ public class VsComputerMode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vs_computer_mode);
+        //Initialize variables and set button listeners
         findViewById(R.id.home_button).setOnTouchListener(new HomeButtonListener(VsComputerMode.this));
         uiHandler = new Handler();
-
         gameOver = false;
         computerTurn = false;
         humanScore = 0;
         computerScore = 0;
+        colors = new int[4];
 
+        //Get the proper size for the game board
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;
+        float density = metrics.density;
+        int width = (int)(metrics.widthPixels - 0.5*density * 64);
         int height = width;
+        Log.d("WIDTHLOADING", String.valueOf(width));
+        Log.d("WIDTHLOADING", String.valueOf(height));
 
-
-        colors = new int[4];
         getGameInformation();
 
         board = ((BoardStorage)getApplication()).getBoard();
@@ -84,12 +87,9 @@ public class VsComputerMode extends AppCompatActivity {
 
         skippedTurnCount = 0;
         nextTurn();
-
-
-
-
     }
 
+    //Method for retrieving the game information from the received intent
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
@@ -100,14 +100,16 @@ public class VsComputerMode extends AppCompatActivity {
 
     }
 
+    //Set the colors of all of the color buttons and prevent them from being clicked
     private void setUpColorButtons(){
         for(int i = 0; i<4; i++){
             colorButtons.get(i).setClickable(false);
             colorButtons.get(i).setBackgroundColor(colors[i]);
         }
-
     }
 
+    //Moves to the next turn in gameplay. The next turn is skipped if the color cannot make any moves.
+    // If four colors have been skipped in a row, the game is ended.
     private void nextTurn(){
         if(skippedTurnCount == 4){
             endGame();
@@ -136,6 +138,7 @@ public class VsComputerMode extends AppCompatActivity {
 
     }
 
+    //Dim the title and colors of the player that are not moving to identify whose turn it is
     private void selectColor(Integer index){
         for(int i = 0; i<4; i++) {
             colorButtons.get(i).setAlpha(0.4f);
@@ -151,6 +154,7 @@ public class VsComputerMode extends AppCompatActivity {
         }
     }
 
+    //Display a dialog telling the user the result of the game
     private void endGame(){
         String message;
 
@@ -169,6 +173,8 @@ public class VsComputerMode extends AppCompatActivity {
         dialog.show();
     }
 
+    //Listener to handle user input on the game baord. If it is the computer's turn, nothing happens.
+    //If it is the player's turn and a valid move, the tile on the board is colored in
     private class VsComputerModeListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent e){
@@ -208,12 +214,14 @@ public class VsComputerMode extends AppCompatActivity {
         }
     }
 
+    //Create the proper computer player and start the background process for its turn
     private void computerPlayerMove(){
         computerPlayer = generateComputerPlayer();
         CompTurn turn = new CompTurn();
         turn.doInBackground();
     }
 
+    //Creates a computer player of the proper difficulty
     private ComputerPlayer generateComputerPlayer(){
         if(gameInformation.getDifficulty().equals(Intents.easyMode)){
             return new ComputerPlayerEasy(board, currentColor, board.getTerritories());
@@ -222,15 +230,13 @@ public class VsComputerMode extends AppCompatActivity {
         }
     }
 
+    //Computer player's turn is performed in the background so that the user can still interact with the screen
+    //This method calls the computer player's nextMove method and fills in the board at the point it receives
     private class CompTurn extends AsyncTask<Void, Void, Void> {
         Point nextMove;
         protected Void doInBackground(Void... voids) {
             nextMove = computerPlayer.getNextMove();
-           /* try{
-                //Thread.sleep(1500);
-            } catch (InterruptedException e){
 
-            }*/
             computerScore += board.colorTerritory(nextMove, currentColor)/100;
             uiHandler.post(new Runnable() {
                 @Override

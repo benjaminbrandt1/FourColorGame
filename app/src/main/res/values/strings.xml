@@ -9,7 +9,7 @@
     <string name="loading">Loading...</string>
     <string name="okay">Okay</string>
     <string name="help_color_picker">Click on the squares to choose your colors for the map.\n\nNo two colors can be the same.\n\nPress Start when ready.</string>
-    <string name="help_game_details">Small: 10 regions\nMedium: 15 regions\nLarge: 25 regions\nCustom: Choose the number of regions</string>
+    <string name="help_game_details">Small: 15 regions\nMedium: 20 regions\nLarge: 30 regions\nCustom: Choose the number of regions</string>
     <string name="help_title_screen">Puzzle Mode: Fill in the map using four colors. Adjacent regions must be different colors
                                     \n\nVs. Computer: Fill in the most regions with your two colors
                                     \n\nMultiplayer: Pass and Play - Fill in the most regions with your two colors</string>
@@ -47,4 +47,8 @@
     <string name="tie_game">It\'s a tie!</string>
     <string name="play_again">Play Again</string>
     <string name="computer_wins">You lost!</string>
+    <string name="how_to_play">How to Play</string>
+    <string name="map_size_help">Map Size</string>
+    <string name="comp_player">Computer</string>
+
 </resources>

@@ -60,6 +60,5 @@ public class GameOverDialog {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 }

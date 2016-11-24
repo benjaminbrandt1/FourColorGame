@@ -1,5 +1,7 @@
 package edu.temple.fourcolorgame.Controllers;
 
+import android.util.Log;
+
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +18,6 @@ import edu.temple.fourcolorgame.Utils.PointAndDistance;
 public class BoardLogic {
     public static final String edgeKey = "edges";
     public static final String adjacencyKey = "adj";
-    public static final String distanceKey = "dist";
-    public static final String pointKey = "point";
 
     //Given the desired number of territories, generate the starting locations of all territories
     public static ArrayList<Point> generateBasePoints(int numTerritories, int width, int height) {

@@ -47,7 +47,11 @@ public class TitleScreen extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.help_button).setOnTouchListener(new HelpButtonListener(TitleScreen.this, R.string.help_title_screen));
+/*        findViewById(R.id.help_button).setOnTouchListener
+                (new HelpButtonListener(TitleScreen.this, R.string.help_title_screen));*/
+
+        findViewById(R.id.help_button).setOnTouchListener
+                (new HelpButtonListener("How to Play", getResources().getString(R.string.help_title_screen), TitleScreen.this));
 
     }
 

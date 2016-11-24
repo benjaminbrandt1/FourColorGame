@@ -47,7 +47,9 @@ public class ColorPicker extends AppCompatActivity {
 
         setTextViews();
 
-       findViewById(R.id.help_button).setOnTouchListener(new HelpButtonListener(ColorPicker.this, R.string.help_color_picker));
+       findViewById(R.id.help_button).setOnTouchListener(
+               new HelpButtonListener(getResources().getString(R.string.color_picker_title),
+                       getResources().getString(R.string.help_color_picker), ColorPicker.this));
 
         findViewById(R.id.back_arrow).setOnTouchListener(new BackArrowListener(ColorPicker.this));
 

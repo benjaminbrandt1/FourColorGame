@@ -56,7 +56,7 @@ public class Surface extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
+        context = null;
     }
 
     public void draw(Bitmap bitmap){

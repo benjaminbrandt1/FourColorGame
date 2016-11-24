@@ -1,8 +1,5 @@
 package edu.temple.fourcolorgame.MapModels;
 
-import android.content.Context;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.R;

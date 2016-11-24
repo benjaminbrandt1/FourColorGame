@@ -39,8 +39,12 @@ public class PuzzleMode extends AppCompatActivity {
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;
+        float density = metrics.density;
+        int width = (int)(metrics.widthPixels - 0.5*density * 64);
         int height = width;
+        //int width = height - 2 * getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        Log.d("WIDTHLOADING", String.valueOf(width));
+        Log.d("WIDTHLOADING", String.valueOf(height));
 
 
         colors = new int[4];

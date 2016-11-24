@@ -22,6 +22,7 @@ public class HomeButtonListener implements View.OnTouchListener {
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 v.setAlpha(0.5f);
@@ -47,6 +48,7 @@ public class HomeButtonListener implements View.OnTouchListener {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
 
                 return true;
         }

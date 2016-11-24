@@ -52,7 +52,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
                 .replace(R.id.map_choices_panel, choicesFragment)
                 .commit();
 
-        findViewById(R.id.help_button).setOnTouchListener(new HelpButtonListener(GameDetails.this, R.string.help_game_details));
+        findViewById(R.id.help_button).setOnTouchListener
+                (new HelpButtonListener(getResources().getString(R.string.map_size_help),
+                        getResources().getString(R.string.help_game_details), GameDetails.this ));
 
         findViewById(R.id.back_arrow).setOnTouchListener(new BackArrowListener(GameDetails.this));
 

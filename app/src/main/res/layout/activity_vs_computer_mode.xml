@@ -54,7 +54,7 @@
             android:layout_toStartOf="@+id/color_four" />
 
         <TextView
-            android:text="@string/player_two"
+            android:text="@string/comp_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/player_two_text"
@@ -62,16 +62,6 @@
             android:textSize="30sp"
             android:layout_above="@+id/color_four"
             android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/player_one"
-            android:textColor="@color/colorText"
-            android:textSize="30sp"
-            android:id="@+id/player_one_text"
-            android:layout_above="@+id/color_two"
-            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,6 +82,16 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="29dp"
             android:id="@+id/computer_score" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you"
+            android:textColor="@color/colorText"
+            android:textSize="30sp"
+            android:id="@+id/player_one_text"
+            android:layout_above="@+id/color_two"
+            android:layout_toEndOf="@+id/human_score" />
 
     </RelativeLayout>
 

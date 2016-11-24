@@ -14,6 +14,7 @@ import edu.temple.fourcolorgame.Utils.BoardStorage;
 import edu.temple.fourcolorgame.Utils.GameInformation;
 import edu.temple.fourcolorgame.Utils.Intents;
 
+//This Activity handles displaying a loading screen while the logic to build a game board is carried out
 public class LoadingScreen extends AppCompatActivity {
     private GameInformation gameInformation;
     private Intent intent;
@@ -37,14 +38,26 @@ public class LoadingScreen extends AppCompatActivity {
         Log.d("gameInfo", String.valueOf(gameInformation.getMapSize()));
     }
 
+    //Thread to build the game board while the loading screen is displayed
     private class BoardBuilder extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... voids) {
+            //Get the proper size for the game board
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            int width = metrics.widthPixels;
-            board = new Board(gameInformation.getMapSize(), width, width, gameInformation.getColors(), LoadingScreen.this);
+            float density = metrics.density;
+            int margin = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+            int width = (int)(metrics.widthPixels - 0.5*density * 64);
+            int height = width;
+            Log.d("WIDTHLOADING", String.valueOf(density*64));
+            Log.d("WIDTHLOADING", String.valueOf(height));
+            Log.d("WIDTHLOADING", String.valueOf(margin));
+
+            //Build the board and save it to the app module so other activities can access it
+            board = new Board(gameInformation.getMapSize(), width, height, gameInformation.getColors(), LoadingScreen.this);
             BoardStorage storage = (BoardStorage) LoadingScreen.this.getApplication();
             storage.setBoard(board);
+
+            //Start the proper gameplay activity
             switch(gameInformation.getGameMode()){
                 case Intents.puzzle:
                     intent = new Intent(LoadingScreen.this, PuzzleMode.class);
@@ -53,7 +66,6 @@ public class LoadingScreen extends AppCompatActivity {
                     intent = new Intent(LoadingScreen.this, TwoPlayerMode.class);
                     break;
                 case Intents.comp:
-                    //TODO comp intent
                     intent = new Intent(LoadingScreen.this, VsComputerMode.class);
                     break;
                 default:

@@ -23,6 +23,7 @@ public class BackArrowListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 v.setAlpha(1);
                 activity.onBackPressed();
+                activity = null;
 
                 return true;
         }

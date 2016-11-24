@@ -15,7 +15,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 /**
  * Created by Ben on 11/13/2016.
  */
-
+//TODO Comment on the methods
 //Model for the game board, represented as 2-d arrays with method to translate into bitmap
 public class Board {
     private int numTerritories;
@@ -65,6 +65,7 @@ public class Board {
 
         territories = new ArrayList<>();
         fillTerritories();
+        context = null;
 
     }
 
@@ -100,6 +101,8 @@ public class Board {
 
     public Bitmap createBitmap(){
         int[] map = new int[width*height];
+        Log.d("WIDTHLOADING", String.valueOf(width));
+        Log.d("WIDTHLOADING", String.valueOf(height));
 
         for(int y = 0; y<height; y++){
             for(int x = 0; x<width; x++){
