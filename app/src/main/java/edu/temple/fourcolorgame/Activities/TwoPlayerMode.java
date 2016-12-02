@@ -1,7 +1,6 @@
 package edu.temple.fourcolorgame.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.temple.fourcolorgame.Controllers.Surface;
+import edu.temple.fourcolorgame.GameLogic.Surface;
 import edu.temple.fourcolorgame.MapModels.Board;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;

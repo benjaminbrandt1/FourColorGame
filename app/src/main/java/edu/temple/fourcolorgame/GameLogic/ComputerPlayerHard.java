@@ -1,4 +1,4 @@
-package edu.temple.fourcolorgame.Controllers;
+package edu.temple.fourcolorgame.GameLogic;
 
 
 

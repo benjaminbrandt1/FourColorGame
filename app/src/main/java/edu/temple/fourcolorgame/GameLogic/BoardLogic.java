@@ -1,11 +1,7 @@
-package edu.temple.fourcolorgame.Controllers;
+package edu.temple.fourcolorgame.GameLogic;
 
-import android.util.Log;
-
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import edu.temple.fourcolorgame.MapModels.BasePoint;
 import edu.temple.fourcolorgame.MapModels.Point;

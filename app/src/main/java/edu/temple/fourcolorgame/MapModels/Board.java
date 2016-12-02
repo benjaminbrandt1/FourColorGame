@@ -2,13 +2,12 @@ package edu.temple.fourcolorgame.MapModels;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import edu.temple.fourcolorgame.Controllers.BoardLogic;
+import edu.temple.fourcolorgame.GameLogic.BoardLogic;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 

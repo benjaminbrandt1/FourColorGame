@@ -70,7 +70,7 @@
         android:layout_weight = "1"
         >
 
-        <edu.temple.fourcolorgame.Controllers.Surface
+        <edu.temple.fourcolorgame.GameLogic.Surface
             android:id="@+id/game_chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

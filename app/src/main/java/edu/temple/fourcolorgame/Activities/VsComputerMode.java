@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.temple.fourcolorgame.Controllers.ComputerPlayer;
-import edu.temple.fourcolorgame.Controllers.ComputerPlayerEasy;
-import edu.temple.fourcolorgame.Controllers.ComputerPlayerHard;
-import edu.temple.fourcolorgame.Controllers.Surface;
+import edu.temple.fourcolorgame.GameLogic.ComputerPlayer;
+import edu.temple.fourcolorgame.GameLogic.ComputerPlayerEasy;
+import edu.temple.fourcolorgame.GameLogic.ComputerPlayerHard;
+import edu.temple.fourcolorgame.GameLogic.Surface;
 import edu.temple.fourcolorgame.MapModels.Board;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;
