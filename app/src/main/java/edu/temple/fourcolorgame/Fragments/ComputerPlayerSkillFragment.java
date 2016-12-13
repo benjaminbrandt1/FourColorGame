@@ -22,9 +22,6 @@ public class ComputerPlayerSkillFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
-    // TODO: Rename and change types and number of parameters
     public static ComputerPlayerSkillFragment newInstance() {
         ComputerPlayerSkillFragment fragment = new ComputerPlayerSkillFragment();
         Bundle args = new Bundle();
@@ -88,7 +85,6 @@ public class ComputerPlayerSkillFragment extends Fragment {
     }
 
     public interface SkillFragmentListener {
-        // TODO: Update argument type and name
         void chooseSkill(String string);
     }
 }

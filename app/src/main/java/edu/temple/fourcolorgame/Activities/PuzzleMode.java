@@ -19,6 +19,10 @@ import edu.temple.fourcolorgame.Utils.GameOverDialog;
 import edu.temple.fourcolorgame.Utils.HomeButtonListener;
 import edu.temple.fourcolorgame.Utils.Intents;
 
+/*
+Single player game activity
+This class contains a Surface object that handles displaying the game map and interpreting user interactions with the map
+ */
 public class PuzzleMode extends AppCompatActivity {
     private int gameMode;
     private int[] colors;
@@ -35,12 +39,13 @@ public class PuzzleMode extends AppCompatActivity {
         setContentView(R.layout.activity_puzzle_mode);
         findViewById(R.id.home_button).setOnTouchListener(new HomeButtonListener(PuzzleMode.this));
 
+        //Determine the size of the board based on screen size
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
         int width = (int)(metrics.widthPixels - 0.5*density * 64);
         int height = width;
-        //int width = height - 2 * getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+
         Log.d("WIDTHLOADING", String.valueOf(width));
         Log.d("WIDTHLOADING", String.valueOf(height));
 
@@ -68,10 +73,11 @@ public class PuzzleMode extends AppCompatActivity {
 
         colorOne.performClick();
 
-
-
     }
 
+    /*
+    Retrieve the game information from the LoadingScreen activity
+     */
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
@@ -82,6 +88,10 @@ public class PuzzleMode extends AppCompatActivity {
 
     }
 
+    /*
+    Attach onClick listener to the specified button
+    When clicked, this button becomes opaque and all other buttons become translucent
+     */
     private void setUpColorButton(final int index, Button button){
         button.setBackgroundColor(colors[index]);
         button.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +107,10 @@ public class PuzzleMode extends AppCompatActivity {
         });
     }
 
+    /*
+    Listener for the Surface object displaying the map
+    This class handles user interaction with the view and passes the information to the model (in this case, the board)
+     */
     private class puzzleModeListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent e){

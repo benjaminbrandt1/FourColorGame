@@ -11,6 +11,10 @@ import edu.temple.fourcolorgame.Utils.HelpButtonListener;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 
+/*
+First screen the user sees
+Provides game mode options and information on how to play each mode
+ */
 public class TitleScreen extends AppCompatActivity {
 
     private Button puzzle, comp, multi;
@@ -46,9 +50,6 @@ public class TitleScreen extends AppCompatActivity {
                 launchGameDetails(Intents.multi);
             }
         });
-
-/*        findViewById(R.id.help_button).setOnTouchListener
-                (new HelpButtonListener(TitleScreen.this, R.string.help_title_screen));*/
 
         findViewById(R.id.help_button).setOnTouchListener
                 (new HelpButtonListener("How to Play", getResources().getString(R.string.help_title_screen), TitleScreen.this));

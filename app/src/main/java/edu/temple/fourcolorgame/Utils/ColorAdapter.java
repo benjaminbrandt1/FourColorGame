@@ -15,6 +15,10 @@ import java.util.ArrayList;
  * Created by Ben on 10/14/2016.
  */
 
+/**
+ * Adapter for the color choice spinners on the ColorPicker activity
+ * Items are displayed as textviews colored the given color
+ */
 public class ColorAdapter extends BaseAdapter {
     private Context mContext;
     private final ArrayList<Integer> colors;

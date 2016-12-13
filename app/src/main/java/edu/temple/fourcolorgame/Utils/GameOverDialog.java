@@ -11,7 +11,7 @@ import edu.temple.fourcolorgame.Activities.TwoPlayerMode;
 import edu.temple.fourcolorgame.R;
 
 /**
- * Created by Ben on 11/19/2016.
+ * Dialog displaying the given message when the game ends
  */
 
 public class GameOverDialog {

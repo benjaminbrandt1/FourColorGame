@@ -4,7 +4,7 @@ package edu.temple.fourcolorgame.MapModels;
  * Created by Ben on 11/13/2016.
  */
 
-//This point serves as an anchor for a territory
+//This point serves as the center of a territory
 public class BasePoint extends Point {
     int territory;
 

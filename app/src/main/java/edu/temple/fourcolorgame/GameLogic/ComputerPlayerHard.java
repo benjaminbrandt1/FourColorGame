@@ -16,7 +16,6 @@ import edu.temple.fourcolorgame.Utils.Intents;
 //Chooses the largest territory possible, but avoids blocking territories that are safe
     //Safe territories are ones that the opponent cannot fill
 public class ComputerPlayerHard implements ComputerPlayer {
-    private Point nextMove;
     private Board board;
     private int selectedColor;
     private int[] colors;
@@ -53,7 +52,7 @@ public class ComputerPlayerHard implements ComputerPlayer {
         ArrayList<Territory> dontBlockList = new ArrayList<>();
 
         Collections.sort(possibleMoves);
-        //TODO switch order to 0 to size()?
+
         for(int i = possibleMoves.size() - 1; i>= 0; i--){
             Territory potential = possibleMoves.get(i);
             if(protectedMoves.contains(potential)){
@@ -76,6 +75,10 @@ public class ComputerPlayerHard implements ComputerPlayer {
 
     }
 
+    /**
+     * Given a list of all possible moves, this determines which territories cannot be claimed by the opponent
+     * Such territories should be saved until last in order to minimize the number of available moves for the opponent
+     */
     private ArrayList<Territory> getProtectedMoves(ArrayList<Territory> moves){
         boolean color1 = false;
         boolean color2 = false;
@@ -97,6 +100,10 @@ public class ComputerPlayerHard implements ComputerPlayer {
         return protectedMoves;
     }
 
+    /**
+     * Retrieves a list of all possible moves the computer can make
+     *
+     */
     private ArrayList<Territory> getPossibleMoves(){
         ArrayList<Territory> moves = new ArrayList<>();
         for(Territory potential : territories) {

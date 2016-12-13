@@ -24,10 +24,13 @@ import edu.temple.fourcolorgame.Utils.HomeButtonListener;
 import edu.temple.fourcolorgame.Utils.Intents;
 import edu.temple.fourcolorgame.Utils.Turn;
 
+/*
+Two player game activity
+This class contains a Surface object that handles displaying the game map and interpreting user interactions with the map
+ */
 public class TwoPlayerMode extends AppCompatActivity {
     private int gameMode, skippedTurnCount;
     private int[] colors;
-    private Button colorOne, colorTwo, colorThree, colorFour;
     private int currentColor;
     private Board board;
     private Surface surface;
@@ -47,15 +50,14 @@ public class TwoPlayerMode extends AppCompatActivity {
         p1score = 0;
         p2score = 0;
 
+        //Determine the size of the board based on screen size
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        /*int width = metrics.widthPixels;
-        int height = width;*/
 
         float density = metrics.density;
         int width = (int)(metrics.widthPixels - 0.5*density * 64);
         int height = width;
-        //int width = height - 2 * getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+
         Log.d("WIDTHLOADING", String.valueOf(width));
         Log.d("WIDTHLOADING", String.valueOf(height));
 
@@ -81,11 +83,11 @@ public class TwoPlayerMode extends AppCompatActivity {
         skippedTurnCount = 0;
         nextTurn();
 
-
-
-
     }
 
+    /*
+    Retrieve the game information from the LoadingScreen activity
+    */
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
@@ -96,14 +98,20 @@ public class TwoPlayerMode extends AppCompatActivity {
 
     }
 
+    //Set the color of the color buttons
+    //These buttons cannot be clicked; they only show whose turn it is
     private void setUpColorButtons(){
         for(int i = 0; i<4; i++){
             colorButtons.get(i).setClickable(false);
             colorButtons.get(i).setBackgroundColor(colors[i]);
         }
-
     }
 
+    /*
+    Handles switching colors each turn
+    Keeps track of how many colors cannot make moves
+     -- if all four cannot move then the game is ended
+     */
     private void nextTurn(){
         if(skippedTurnCount == 4){
             endGame();
@@ -128,6 +136,9 @@ public class TwoPlayerMode extends AppCompatActivity {
 
     }
 
+    /**
+     *Makes the current color opaque and all other color buttons translucent
+     */
     private void selectColor(Integer index){
         for(int i = 0; i<4; i++) {
             colorButtons.get(i).setAlpha(0.4f);
@@ -143,6 +154,10 @@ public class TwoPlayerMode extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when no moves are available or the board is filled
+     * Displays a GameOverDialog
+     */
     private void endGame(){
         String message;
 
@@ -164,6 +179,10 @@ public class TwoPlayerMode extends AppCompatActivity {
 
     }
 
+    /*
+   Listener for the Surface object displaying the map
+   This class handles user interaction with the view and passes the information to the model (in this case, the board)
+    */
     private class TwoPlayerModeListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent e){
@@ -198,7 +217,6 @@ public class TwoPlayerMode extends AppCompatActivity {
                 endGame();
 
             }
-
 
             return false;
         }

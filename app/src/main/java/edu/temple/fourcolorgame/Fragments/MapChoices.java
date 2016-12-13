@@ -12,7 +12,9 @@ import android.widget.Toast;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 
-
+/**
+ * Fragment that handles displaying the options for map sizes
+ */
 public class MapChoices extends Fragment {
 
     private Button small, medium, large, custom;
@@ -23,6 +25,7 @@ public class MapChoices extends Fragment {
         // Required empty public constructor
     }
 
+    //Factory method
     public static MapChoices newInstance() {
         MapChoices fragment = new MapChoices();
         return fragment;
@@ -40,7 +43,6 @@ public class MapChoices extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_map_choices, container, false);
         setUpMapButtons(v);
-
 
         return v;
     }
@@ -73,6 +75,9 @@ public class MapChoices extends Fragment {
         void updateMapChoice(String string);
     }
 
+    /**
+     * Highlights the custom button to signify that it has been selected
+     */
     public void setCustomSelected(){
         small.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         medium.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -80,8 +85,11 @@ public class MapChoices extends Fragment {
         custom.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
+    /**
+     * Highlights the clicked view and makes all other buttons dark
+     * @param v
+     */
     private void buttonClicked(View v){
-
             small.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             medium.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             large.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -90,6 +98,10 @@ public class MapChoices extends Fragment {
     }
 
 
+    /**
+     * Attach listeners to all of the map option buttons
+     * @param v
+     */
     private void setUpMapButtons(View v){
         small = (Button)v.findViewById(R.id.small_map);
         medium = (Button)v.findViewById(R.id.medium_map);

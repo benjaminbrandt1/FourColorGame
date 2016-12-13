@@ -31,6 +31,9 @@ public class LoadingScreen extends AppCompatActivity {
 
     }
 
+    /*
+    Retrieve all details about the game being created
+     */
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);

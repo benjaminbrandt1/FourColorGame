@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-//Surface for the puzzle
+//Surface for the puzzle --> this is the view in the MVC pattern
 public class Surface extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap bitmap;
     private Context context;

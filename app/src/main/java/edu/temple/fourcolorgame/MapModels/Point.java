@@ -31,6 +31,7 @@ public class Point {
         this.y = y;
     }
 
+    //Calculate distance between self and given point
     public double getDistanceTo(Point p){
         double horizontal = Math.abs(x - p.getX());
         double vertical = Math.abs(y - p.getY());

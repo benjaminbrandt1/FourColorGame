@@ -1,7 +1,9 @@
 package edu.temple.fourcolorgame.Utils;
 
 /**
- * Created by Ben on 11/18/2016.
+ * Iterator to handle determining which turn it is (from 0 to 3)
+ * Player 1 has 0 and 1 and Player 2 has 2 and 3
+ * Thus, the order should go 0, 2, 1, 3, 0, 2, 1, 3, etc...
  */
 
 public class Turn {

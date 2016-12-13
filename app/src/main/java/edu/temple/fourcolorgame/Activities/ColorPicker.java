@@ -22,7 +22,10 @@ import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 
 /**
- * Created by Ben on 10/14/2016.
+ * Activity allowing the user to select the colors they will play with during the game
+ * Colors are chosen from four spinners
+ * Colors must be unique
+ *   -- if a user chooses a color that is not unique, the spinner reverts to the previous selection
  */
 
 public class ColorPicker extends AppCompatActivity {
@@ -33,6 +36,9 @@ public class ColorPicker extends AppCompatActivity {
     private Button startButton;
     private GameInformation gameInformation;
 
+    /*
+    Initialize views and set the adapter for the color choice spinners
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +82,11 @@ public class ColorPicker extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
+
+    /*
+    Retrieve the game data stored by the previous activities in the game selection process
+     */
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
@@ -86,6 +95,9 @@ public class ColorPicker extends AppCompatActivity {
 
     }
 
+    /*
+    Takes an array of integers and returns the same information as an ArrayList of Integer objects
+     */
     private ArrayList<Integer> getIntegerArray(int[] array){
         ArrayList<Integer> res = new ArrayList<>();
         for(int i = 0; i<array.length; i++){
@@ -94,6 +106,9 @@ public class ColorPicker extends AppCompatActivity {
         return res;
     }
 
+    /*
+    Sets the adapter and the onItemSelectedListener for a spinner
+     */
     private Spinner setUpSpinners(int viewId, final int index, ColorAdapter adapter){
         final Spinner spinner = (Spinner)findViewById(viewId);
 
@@ -123,11 +138,13 @@ public class ColorPicker extends AppCompatActivity {
         spinner.setSelection(index);
 
         return spinner;
-
-
     }
 
-
+    /*
+    Sets the title of the color spinners based on the game mode
+      -- "You" and "Computer for computer mode
+      -- "Player 1" and "Player 2" for multiplayer
+     */
     private void setTextViews(){
         TextView top = (TextView)findViewById(R.id.color_pick_top_text);
         TextView bottom = (TextView)findViewById(R.id.color_pick_bottom_text);
@@ -157,6 +174,9 @@ public class ColorPicker extends AppCompatActivity {
         }
     }
 
+    /*
+    Checks to see if a color chosen has already been chosen and stored in userPicks
+     */
     private boolean isUnique(int color, int position){
         for(int i = 0; i < userPicks.length; i++){
             if(i == position){

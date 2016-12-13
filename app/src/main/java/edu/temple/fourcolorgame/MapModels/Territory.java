@@ -71,8 +71,5 @@ public class Territory implements Comparable<Territory>{
         }
     }
 
-
-
-
 }
 

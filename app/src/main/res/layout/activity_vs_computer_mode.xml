@@ -91,7 +91,7 @@
             android:textSize="30sp"
             android:id="@+id/player_one_text"
             android:layout_above="@+id/color_two"
-            android:layout_toEndOf="@+id/human_score" />
+            android:layout_toEndOf="@+id/color_one" />
 
     </RelativeLayout>
 

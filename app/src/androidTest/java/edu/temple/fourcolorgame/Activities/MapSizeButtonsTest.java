@@ -20,6 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+//Automated UI test to check the functionality of the map size option buttons
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MapSizeButtonsTest {

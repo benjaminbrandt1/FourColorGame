@@ -22,6 +22,10 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+/*
+Test the functionality of the computer difficulty option buttons
+Automated UI test
+ */
 public class CompDifficultyButtonsTest {
 
     @Rule

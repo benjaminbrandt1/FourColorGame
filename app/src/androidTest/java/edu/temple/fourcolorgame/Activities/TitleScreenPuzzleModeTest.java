@@ -22,6 +22,7 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+//Test that the puzzle mode button works
 public class TitleScreenPuzzleModeTest {
 
     @Rule

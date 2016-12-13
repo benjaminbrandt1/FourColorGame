@@ -6,18 +6,22 @@ import java.util.HashMap;
 import edu.temple.fourcolorgame.MapModels.BasePoint;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.MapModels.Rectangle;
-import edu.temple.fourcolorgame.Utils.PointAndDistance;
+import edu.temple.fourcolorgame.MapModels.PointAndDistance;
 
 /**
  * Created by Ben on 11/13/2016.
  */
 
-//Contains logic for building game boards
+/**
+ * Logic used by the Board class to build the 2d array representing the board
+ * Creates an Edge list and an Adjacency Matrix for each territory
+ */
 public class BoardLogic {
     public static final String edgeKey = "edges";
     public static final String adjacencyKey = "adj";
 
     //Given the desired number of territories, generate the starting locations of all territories
+    //Starting points are randomly assigned and then tested to ensure they are far enough from other starting points
     public static ArrayList<Point> generateBasePoints(int numTerritories, int width, int height) {
         ArrayList<Point> basePoints = new ArrayList<>(numTerritories);
 
@@ -87,28 +91,31 @@ public class BoardLogic {
             for(int i = 0; i < corners.size(); i++){
                 Point corner = corners.get(i);
                 int territory = getCornerTerritory(basePoints, corner);
-                board[corner.getY()][corner.getX()] = territory;
+                int y = corner.getY();
+                int x = corner.getX();
+                board[y][x] = territory;
             }
         } else {
             //find and store the corner territories
             for(int i = 0; i<corners.size(); i++){
                 Point corner = corners.get(i);
                 int territory = getCornerTerritory(basePoints, corner);
-                board[corner.getY()][corner.getX()] = territory;
-
+                int y = corner.getY();
+                int x = corner.getX();
+                board[y][x] = territory;
             }
 
-            int topLeft = board[corners.get(0).getY()][corners.get(0).getX()];
-            int topRight = board[corners.get(1).getY()][corners.get(1).getX()];
-            int bottomRight = board[corners.get(2).getY()][corners.get(2).getX()];
-            int bottomLeft = board[corners.get(3).getY()][corners.get(3).getX()];
+            int topLeftCorner = board[corners.get(0).getY()][corners.get(0).getX()];
+            int topRightCorner = board[corners.get(1).getY()][corners.get(1).getX()];
+            int bottomRightCorner = board[corners.get(2).getY()][corners.get(2).getX()];
+            int bottomLeftCorner = board[corners.get(3).getY()][corners.get(3).getX()];
 
             //if all parts of rectangle are in same territory
-            if(bottomLeft == bottomRight && bottomRight==topRight && topRight==topLeft){
+            if(bottomLeftCorner == bottomRightCorner && bottomRightCorner==topRightCorner && topRightCorner==topLeftCorner){
                 //Fill in this rectangle
                 for(int y = corners.get(0).getY(); y<= corners.get(2).getY(); y++){
                     for (int x = corners.get(0).getX(); x<=corners.get(2).getX(); x++){
-                        board[y][x] = topLeft;
+                        board[y][x] = topLeftCorner;
                     }
                 }
             } else {
@@ -127,6 +134,7 @@ public class BoardLogic {
     }
 
     //Generate an edge list and adjacency matrix for a board and its territories
+    //If a point has no adjacent territories, it is an interior point, otherwise it is an edge
     public static HashMap<String, int[][]> generateEdgesAndAdjacency(int[][] board, int numTerritories) {
         HashMap<String, int[][]> edgesAndAdjacency = new HashMap<>();
         //Get num rows and columns
@@ -147,12 +155,13 @@ public class BoardLogic {
                     adjacencyMatrix[indexesOfAdjacents.get(iterator)][index] = 1;
                 }
 
+                //Add interior edges
                 if(indexesOfAdjacents.isEmpty()){
                     edges[y][x] = 0;
                 } else {
                     edges[y][x] = 1;
                 }
-                //Border
+                //Add Border
                 if(y == 0 || y == height-1 || x == 0 || x == width-1){
                     edges[y][x] = 1;
                 }
@@ -165,7 +174,9 @@ public class BoardLogic {
 
     }
 
-    //Retrieve list of adjacent territories given a specific territory and a board
+    //Retrieve list of adjacent territories given a specific point and a board
+    //This checks all adjacent points. If the adjacent point has a different value than the
+    //given point, than it belongs to an adjacent territory
     private static ArrayList<Integer> adjacentTerritories(int[][] board, int y, int x) {
         ArrayList<Integer> adjacentTerritories = new ArrayList<>();
         int prevRow = y-1;

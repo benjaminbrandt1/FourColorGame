@@ -16,9 +16,6 @@ import edu.temple.fourcolorgame.R;
 //Fragment containing the UI for choosing a custom map size
 public class CustomMapPicker extends Fragment {
 
-
-
-
     private CustomMapListener mListener;
     private Activity context;
 
@@ -26,8 +23,7 @@ public class CustomMapPicker extends Fragment {
         // Required empty public constructor
     }
 
-
-
+    //Factory method
     public static CustomMapPicker newInstance() {
         CustomMapPicker fragment = new CustomMapPicker();
         return fragment;

@@ -14,10 +14,20 @@ import edu.temple.fourcolorgame.Utils.Intents;
 /**
  * Created by Ben on 11/13/2016.
  */
-//TODO Comment on the methods
+
 //Model for the game board, represented as 2-d arrays with method to translate into bitmap
+//Includes methods for determining whether or not a move is valid and if the game is over
 public class Board {
     private int numTerritories;
+    private int width;
+    private int height;
+    private int backgroundColor;
+    private int edgeColor;
+    private int[][] board, edges, adjacencyMatrix;
+    private ArrayList<Territory> territories;
+    private ArrayList<Point> basePoints;
+    int[] colors;
+    Context context;
 
     public int getWidth() {
         return width;
@@ -27,20 +37,11 @@ public class Board {
         return height;
     }
 
-    private int width;
-    private int height;
-    private int backgroundColor;
-    private int edgeColor;
-    private int[][] board, edges, adjacencyMatrix;
-
     public ArrayList<Territory> getTerritories() {
         return territories;
     }
 
-    private ArrayList<Territory> territories;
-    private ArrayList<Point> basePoints;
-    int[] colors;
-    Context context;
+
 
     public Board(int numTerritories, int width, int height, int[] colors, Context context){
         this.context = context;
@@ -64,10 +65,11 @@ public class Board {
 
         territories = new ArrayList<>();
         fillTerritories();
-        context = null;
+        this.context = null;
 
     }
 
+    //Retrieves the corners of the board
     private ArrayList<Point> getCorners(){
         ArrayList<Point> corners = new ArrayList<>();
         //Bottom left
@@ -82,6 +84,7 @@ public class Board {
         return corners;
     }
 
+    //Adds all interior points to each territory
     private void fillTerritories(){
         //Create a territory for each base point
         for(int i = 0; i< basePoints.size(); i++){
@@ -98,6 +101,7 @@ public class Board {
         }
     }
 
+    //Convert the 2d array representation into a bitmap
     public Bitmap createBitmap(){
         int[] map = new int[width*height];
         Log.d("WIDTHLOADING", String.valueOf(width));
@@ -121,6 +125,7 @@ public class Board {
         return bitmap;
     }
 
+    //Retrieve all adjacent territories for a given territory
     public ArrayList<Territory> getAdjacentTerritories(Territory territory){
         int index  = territories.indexOf(territory);
         ArrayList<Territory>adjacentTerritories = new ArrayList<>();
@@ -139,6 +144,7 @@ public class Board {
 
     }
 
+    //Fill in a territory once a move has been determined as valid
     public int colorTerritory(Point p, int color){
         //Get the selected territory
         int index = board[p.getY()][p.getX()];
@@ -158,6 +164,8 @@ public class Board {
         return territory.getSize();
     }
 
+    //Checks the board to make sure that the given point is in an unclaimed territory
+    //and that none of the territory's neighbors are the same color as the given color
     public boolean isValidMove(Point p, int color, int gameMode){
         if(color == backgroundColor){ //unclaimed territory
             return true;
@@ -191,7 +199,7 @@ public class Board {
     }
 
     //Check to see if point can potentially hold this color
-    public boolean isValidEndState(Point p, int color){
+    public boolean potentialMove(Point p, int color){
         if(color == backgroundColor) {
             return true;
         } else {
@@ -230,7 +238,7 @@ public class Board {
             Territory t = territories.get(i);
             Log.d("Territory", String.valueOf(i));
             if(t.getColor() == backgroundColor){
-                if(isValidEndState(t.getBase(), color)){
+                if(potentialMove(t.getBase(), color)){
                     return false;
                 }
             }
@@ -243,10 +251,10 @@ public class Board {
         for(int i = 0; i<territories.size(); i++){
             Territory t = territories.get(i);
             if(t.getColor() == backgroundColor){
-                if(isValidEndState(t.getBase(), colors[0])
-                        || isValidEndState(t.getBase(), colors[1])
-                        || isValidEndState(t.getBase(), colors[2])
-                        || isValidEndState(t.getBase(), colors[3])
+                if(potentialMove(t.getBase(), colors[0])
+                        || potentialMove(t.getBase(), colors[1])
+                        || potentialMove(t.getBase(), colors[2])
+                        || potentialMove(t.getBase(), colors[3])
                         ) {
                     return false;
                 }

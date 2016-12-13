@@ -20,6 +20,9 @@ import edu.temple.fourcolorgame.Fragments.MapChoices;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 
+/*
+Activity where users choose map size and, if required, computer difficulty
+ */
 public class GameDetails extends AppCompatActivity implements ComputerPlayerSkillFragment.SkillFragmentListener, MapChoices.MapChoiceListener,
         CustomMapPicker.CustomMapListener {
     private GameInformation gameInformation;
@@ -27,6 +30,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
     private Button nextButton;
     private MapChoices choicesFragment;
 
+    /*
+    Set up views and fragments
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +43,7 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         intent = new Intent(GameDetails.this, ColorPicker.class);
 
 
-        if(gameInformation.getGameMode()== Intents.comp){
+        if(gameInformation.getGameMode()== Intents.comp){ //Computer Mode requires the difficulty fragment
             getFragmentManager().beginTransaction()
                     .replace( R.id.computer_player_skill_fragment, ComputerPlayerSkillFragment.newInstance())
                     .commit();
@@ -74,11 +80,17 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         });
     }
 
+    /*
+    Retrieve the game information passed on by the title screen activity
+     */
     private void getGameInformation(){
         Intent receivedIntent = getIntent();
         gameInformation = receivedIntent.getParcelableExtra(Intents.gameInformation);
     }
 
+    /*
+    Called by the map fragment, this updates the user's selection of map size
+     */
     @Override
     public void updateMapChoice(String string){
         if(Integer.parseInt(string) != -1) {
@@ -90,6 +102,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         }
     }
 
+    /*
+    Called by the computer skill fragment, this updates the user's selection of difficulty
+     */
     @Override
     public void chooseSkill(String string){
         gameInformation.setDifficulty(string);
@@ -103,6 +118,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         }
     }
 
+    /*
+    Called by the custom map fragment, this sets the map size to a custom integer
+     */
     @Override
     public void customMapSelection(String size) {
         gameInformation.setMapSize(Integer.parseInt(size));
@@ -110,6 +128,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         choicesFragment.setCustomSelected();
     }
 
+    /*
+    Called when a user backs out of the custom map selection
+     */
     @Override
     public void customMapCancel() {
         replaceMapPanel(MapChoices.newInstance());
@@ -125,6 +146,9 @@ public class GameDetails extends AppCompatActivity implements ComputerPlayerSkil
         }
     }
 
+    /*
+    Used to switch between the map size and custom map size fragments
+     */
     public void replaceMapPanel(Fragment fragment){
         FragmentManager fm = getFragmentManager();
                 fm.beginTransaction()

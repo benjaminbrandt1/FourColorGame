@@ -30,6 +30,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 import edu.temple.fourcolorgame.Utils.Turn;
 
 //Activity for handling user input and gameplay for Vs Computer mode
+//This class contains a Surface object that handles displaying the game map and interpreting user interactions with the map
 public class VsComputerMode extends AppCompatActivity {
 
     private int gameMode, skippedTurnCount;

@@ -8,6 +8,9 @@ import android.view.View;
  * Created by Ben on 10/27/2016.
  */
 
+/**
+ * This listener simulates the back button being pressed
+ */
 public class BackArrowListener implements View.OnTouchListener {
     private Activity activity;
 
