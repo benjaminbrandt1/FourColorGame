@@ -13,10 +13,10 @@ import edu.temple.fourcolorgame.MapModels.PointAndDistance;
  */
 
 /**
- * Logic used by the Board class to build the 2d array representing the board
+ * Logic used by the Map class to build the 2d array representing the board
  * Creates an Edge list and an Adjacency Matrix for each territory
  */
-public class BoardLogic {
+public class MapLogic {
     public static final String edgeKey = "edges";
     public static final String adjacencyKey = "adj";
 
@@ -36,7 +36,7 @@ public class BoardLogic {
             Point newBase = getRandomPoint(height, width, basePoints.size());
 
             //find nearest neighboring territory, if it is far enough away, add the new territory
-            PointAndDistance pnd = BoardLogic.getNearestNeighbor(basePoints, newBase);
+            PointAndDistance pnd = MapLogic.getNearestNeighbor(basePoints, newBase);
 
             if(pnd == null){
                 basePoints.add(newBase);

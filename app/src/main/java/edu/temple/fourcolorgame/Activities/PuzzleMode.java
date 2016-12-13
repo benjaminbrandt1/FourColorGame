@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import edu.temple.fourcolorgame.GameLogic.Surface;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.BoardStorage;
@@ -28,7 +28,7 @@ public class PuzzleMode extends AppCompatActivity {
     private int[] colors;
     private Button colorOne, colorTwo, colorThree, colorFour;
     private int currentColor;
-    private Board board;
+    private Map map;
     private Surface surface;
     private GameInformation gameInformation;
     private boolean gameOver;
@@ -39,7 +39,7 @@ public class PuzzleMode extends AppCompatActivity {
         setContentView(R.layout.activity_puzzle_mode);
         findViewById(R.id.home_button).setOnTouchListener(new HomeButtonListener(PuzzleMode.this));
 
-        //Determine the size of the board based on screen size
+        //Determine the size of the map based on screen size
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
@@ -53,10 +53,10 @@ public class PuzzleMode extends AppCompatActivity {
         colors = new int[4];
         getGameInformation();
 
-        board = ((BoardStorage)getApplication()).getBoard();
+        map = ((BoardStorage)getApplication()).getMap();
         surface = (Surface)findViewById(R.id.game_chart);
 
-        surface.setBitmap(board.createBitmap());
+        surface.setBitmap(map.createBitmap());
 
         surface.setLayoutParams(new android.widget.RelativeLayout.LayoutParams(width, height));
         surface.setOnTouchListener(new puzzleModeListener());
@@ -109,7 +109,7 @@ public class PuzzleMode extends AppCompatActivity {
 
     /*
     Listener for the Surface object displaying the map
-    This class handles user interaction with the view and passes the information to the model (in this case, the board)
+    This class handles user interaction with the view and passes the information to the model (in this case, the map)
      */
     private class puzzleModeListener implements View.OnTouchListener {
         @Override
@@ -123,18 +123,18 @@ public class PuzzleMode extends AppCompatActivity {
                 return false;
             }
 
-            if(x >= board.getWidth() || y >= board.getHeight()){
+            if(x >= map.getWidth() || y >= map.getHeight()){
                 return false;
             }
 
-            if(board.isValidMove(click, currentColor, gameMode)){
-                board.colorTerritory(click, currentColor);
-                surface.draw(board.createBitmap());
+            if(map.isValidMove(click, currentColor, gameMode)){
+                map.colorTerritory(click, currentColor);
+                surface.draw(map.createBitmap());
             } else {
                 Toast.makeText(PuzzleMode.this, getResources().getText(R.string.invalidMove), Toast.LENGTH_SHORT).show();
             }
 
-            if(board.isFilledOut()){
+            if(map.isFilledOut()){
                 gameOver = true;
                 GameOverDialog dialog = new GameOverDialog(getResources().getString(R.string.game_over),
                         getResources().getString(R.string.you_win), PuzzleMode.this, gameInformation);

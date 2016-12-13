@@ -19,7 +19,7 @@ import edu.temple.fourcolorgame.GameLogic.ComputerPlayer;
 import edu.temple.fourcolorgame.GameLogic.ComputerPlayerEasy;
 import edu.temple.fourcolorgame.GameLogic.ComputerPlayerHard;
 import edu.temple.fourcolorgame.GameLogic.Surface;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.BoardStorage;
@@ -36,7 +36,7 @@ public class VsComputerMode extends AppCompatActivity {
     private int gameMode, skippedTurnCount;
     private int[] colors;
     private int currentColor;
-    private Board board;
+    private Map map;
     private Surface surface;
     private GameInformation gameInformation;
     private ArrayList<Button> colorButtons;
@@ -59,7 +59,7 @@ public class VsComputerMode extends AppCompatActivity {
         computerScore = 0;
         colors = new int[4];
 
-        //Get the proper size for the game board
+        //Get the proper size for the game map
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
@@ -70,10 +70,10 @@ public class VsComputerMode extends AppCompatActivity {
 
         getGameInformation();
 
-        board = ((BoardStorage)getApplication()).getBoard();
+        map = ((BoardStorage)getApplication()).getMap();
         surface = (Surface)findViewById(R.id.game_chart);
 
-        surface.setBitmap(board.createBitmap());
+        surface.setBitmap(map.createBitmap());
 
         surface.setLayoutParams(new android.widget.RelativeLayout.LayoutParams(width, height));
         surface.setOnTouchListener(new VsComputerMode.VsComputerModeListener());
@@ -123,7 +123,7 @@ public class VsComputerMode extends AppCompatActivity {
             turn.next();
             selectColor(turn.getTurn());
 
-            if(board.noMovesAvailable(colors[turn.getTurn()])){
+            if(map.noMovesAvailable(colors[turn.getTurn()])){
                 skippedTurnCount++;
                 Log.d("SkippedTurn", String.valueOf(skippedTurnCount));
                 nextTurn();
@@ -175,7 +175,7 @@ public class VsComputerMode extends AppCompatActivity {
     }
 
     //Listener to handle user input on the game baord. If it is the computer's turn, nothing happens.
-    //If it is the player's turn and a valid move, the tile on the board is colored in
+    //If it is the player's turn and a valid move, the tile on the map is colored in
     private class VsComputerModeListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent e){
@@ -188,24 +188,24 @@ public class VsComputerMode extends AppCompatActivity {
                 return false;
             }
 
-            if(x >= board.getWidth() || y >= board.getHeight()){
+            if(x >= map.getWidth() || y >= map.getHeight()){
                 return false;
             }
 
-            if(board.isValidMove(click, currentColor, gameMode)){
+            if(map.isValidMove(click, currentColor, gameMode)){
                 if(turn.getTurn() <= 1) {
-                    humanScore += board.colorTerritory(click, currentColor)/100;
+                    humanScore += map.colorTerritory(click, currentColor)/100;
                     ((TextView)findViewById(R.id.human_score)).setText(String.valueOf(humanScore));
                 } else {
                     return false;
                 }
-                surface.draw(board.createBitmap());
+                surface.draw(map.createBitmap());
                 nextTurn();
             } else {
                 Toast.makeText(VsComputerMode.this, getResources().getText(R.string.invalidMove), Toast.LENGTH_SHORT).show();
             }
 
-            if(board.isFilledOut()){
+            if(map.isFilledOut()){
                 endGame();
 
             }
@@ -225,25 +225,25 @@ public class VsComputerMode extends AppCompatActivity {
     //Creates a computer player of the proper difficulty
     private ComputerPlayer generateComputerPlayer(){
         if(gameInformation.getDifficulty().equals(Intents.easyMode)){
-            return new ComputerPlayerEasy(board, currentColor, board.getTerritories());
+            return new ComputerPlayerEasy(map, currentColor, map.getTerritories());
         } else {
-            return new ComputerPlayerHard(board, currentColor, board.getTerritories(), colors);
+            return new ComputerPlayerHard(map, currentColor, map.getTerritories(), colors);
         }
     }
 
     //Computer player's turn is performed in the background so that the user can still interact with the screen
-    //This method calls the computer player's nextMove method and fills in the board at the point it receives
+    //This method calls the computer player's nextMove method and fills in the map at the point it receives
     private class CompTurn extends AsyncTask<Void, Void, Void> {
         Point nextMove;
         protected Void doInBackground(Void... voids) {
             nextMove = computerPlayer.getNextMove();
 
-            computerScore += board.colorTerritory(nextMove, currentColor)/100;
+            computerScore += map.colorTerritory(nextMove, currentColor)/100;
             uiHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     ((TextView)findViewById(R.id.computer_score)).setText(String.valueOf(computerScore));
-                    surface.draw(board.createBitmap());
+                    surface.draw(map.createBitmap());
                 }
             });
             computerTurn = false;

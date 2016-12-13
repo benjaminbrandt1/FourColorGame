@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.Utils.Intents;
 
@@ -30,10 +30,10 @@ public class Puzzle_mode_color_empty_territory_test {
     public void fill_in_open_region_puzzle_mode() throws Exception {
         int[] colors = new int[]{1, 2, 3, 4};
 
-        Board board = new Board(30, 540, 540, colors , context );
+        Map map = new Map(30, 540, 540, colors , context );
 
         Point p = new Point(300, 300);
-        boolean validMove = board.isValidMove(p, colors[0], Intents.puzzle);
+        boolean validMove = map.isValidMove(p, colors[0], Intents.puzzle);
         assertEquals(true, validMove);
     }
 }

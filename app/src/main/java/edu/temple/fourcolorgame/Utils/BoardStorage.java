@@ -2,20 +2,20 @@ package edu.temple.fourcolorgame.Utils;
 
 import android.app.Application;
 
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 
 /**
  * Created by Ben on 11/18/2016.
  */
 
 public class BoardStorage extends Application {
-    public Board getBoard() {
-        return board;
+    public Map getMap() {
+        return map;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
+    public void setMap(Map map) {
+        this.map = map;
     }
 
-    private Board board;
+    private Map map;
 }

@@ -11,7 +11,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.GameLogic.ComputerPlayerEasy;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.MapModels.Territory;
 import edu.temple.fourcolorgame.Utils.Intents;
@@ -19,14 +19,14 @@ import edu.temple.fourcolorgame.Utils.Intents;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test to see that the board can tell when it is not completely filled
- * A board with 3 territories is created
- * A computer player fills out two of the territories
- * It is checked that the board returns false when isFilledOut() is called
+ * Test to see that the board can tell when it is completely filled
+ * A board with three territories is created
+ * A computer player fills in all three territories
+ * The board checks to see if it is filled out -> should return true
  */
 
 @RunWith(JUnit4.class)
-public class Unfilled_Board_Test {
+public class Filled_Map_Test {
     Context context;
 
     @Before
@@ -38,22 +38,22 @@ public class Unfilled_Board_Test {
     public void board_is_filled() throws Exception {
         int[] colors = new int[]{1, 2, 3, 4};
 
-        Board board = new Board(3, 540, 540, colors , context );
+        Map map = new Map(3, 540, 540, colors , context );
 
-        ArrayList<Territory> territories = board.getTerritories();
+        ArrayList<Territory> territories = map.getTerritories();
 
-        for(int i = 0; i<2; i++) {
+        for(int i = 0; i<3; i++) {
 
-            ComputerPlayerEasy comp = new ComputerPlayerEasy(board, colors[i], territories);
+            ComputerPlayerEasy comp = new ComputerPlayerEasy(map, colors[i], territories);
 
             Point p = comp.getNextMove();
-            if(board.isValidMove(p, colors[i], Intents.comp)) {
-                board.colorTerritory(p, colors[i]);
+            if(map.isValidMove(p, colors[i], Intents.comp)) {
+                map.colorTerritory(p, colors[i]);
             }
         }
 
-        boolean complete = board.isFilledOut();
+        boolean complete = map.isFilledOut();
 
-        assertEquals(false, complete);
+        assertEquals(true, complete);
     }
 }

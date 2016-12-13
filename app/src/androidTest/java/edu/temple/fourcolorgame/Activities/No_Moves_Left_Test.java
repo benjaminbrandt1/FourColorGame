@@ -11,7 +11,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.GameLogic.ComputerPlayerEasy;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.MapModels.Territory;
 import edu.temple.fourcolorgame.Utils.Intents;
@@ -38,19 +38,19 @@ public class No_Moves_Left_Test {
     public void no_moves_all_colors() throws Exception {
         int[] colors = new int[]{1, 1, 1, 1};
 
-        Board board = new Board(3, 540, 540, colors, context);
+        Map map = new Map(3, 540, 540, colors, context);
 
-        ArrayList<Territory> territories = board.getTerritories();
+        ArrayList<Territory> territories = map.getTerritories();
 
-        ComputerPlayerEasy comp = new ComputerPlayerEasy(board, colors[0], territories);
+        ComputerPlayerEasy comp = new ComputerPlayerEasy(map, colors[0], territories);
 
         Point p = comp.getNextMove();
 
-        if (board.isValidMove(p, colors[0], Intents.comp)) {
-            board.colorTerritory(p, colors[0]);
+        if (map.isValidMove(p, colors[0], Intents.comp)) {
+            map.colorTerritory(p, colors[0]);
         }
 
-        boolean complete = board.noMovesAvailable(colors);
+        boolean complete = map.noMovesAvailable(colors);
 
         assertEquals(true, complete);
     }

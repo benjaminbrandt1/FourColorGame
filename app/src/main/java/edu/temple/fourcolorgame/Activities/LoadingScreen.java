@@ -6,19 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.widget.Toast;
 
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.BoardStorage;
 import edu.temple.fourcolorgame.Utils.GameInformation;
 import edu.temple.fourcolorgame.Utils.Intents;
 
-//This Activity handles displaying a loading screen while the logic to build a game board is carried out
+//This Activity handles displaying a loading screen while the logic to build a game map is carried out
 public class LoadingScreen extends AppCompatActivity {
     private GameInformation gameInformation;
     private Intent intent;
-    private Board board;
+    private Map map;
 
 
     @Override
@@ -41,10 +40,10 @@ public class LoadingScreen extends AppCompatActivity {
         Log.d("gameInfo", String.valueOf(gameInformation.getMapSize()));
     }
 
-    //Thread to build the game board while the loading screen is displayed
+    //Thread to build the game map while the loading screen is displayed
     private class BoardBuilder extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... voids) {
-            //Get the proper size for the game board
+            //Get the proper size for the game map
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             float density = metrics.density;
@@ -55,10 +54,10 @@ public class LoadingScreen extends AppCompatActivity {
             Log.d("WIDTHLOADING", String.valueOf(height));
             Log.d("WIDTHLOADING", String.valueOf(margin));
 
-            //Build the board and save it to the app module so other activities can access it
-            board = new Board(gameInformation.getMapSize(), width, height, gameInformation.getColors(), LoadingScreen.this);
+            //Build the map and save it to the app module so other activities can access it
+            map = new Map(gameInformation.getMapSize(), width, height, gameInformation.getColors(), LoadingScreen.this);
             BoardStorage storage = (BoardStorage) LoadingScreen.this.getApplication();
-            storage.setBoard(board);
+            storage.setMap(map);
 
             //Start the proper gameplay activity
             switch(gameInformation.getGameMode()){

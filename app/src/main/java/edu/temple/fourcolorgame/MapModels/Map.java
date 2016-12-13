@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import edu.temple.fourcolorgame.GameLogic.BoardLogic;
+import edu.temple.fourcolorgame.GameLogic.MapLogic;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.Intents;
 
@@ -17,7 +17,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 
 //Model for the game board, represented as 2-d arrays with method to translate into bitmap
 //Includes methods for determining whether or not a move is valid and if the game is over
-public class Board {
+public class Map {
     private int numTerritories;
     private int width;
     private int height;
@@ -43,7 +43,7 @@ public class Board {
 
 
 
-    public Board(int numTerritories, int width, int height, int[] colors, Context context){
+    public Map(int numTerritories, int width, int height, int[] colors, Context context){
         this.context = context;
         this.colors = colors;
         this.numTerritories = numTerritories;
@@ -53,15 +53,15 @@ public class Board {
         edgeColor = context.getResources().getColor(R.color.edge_color);
 
         //Build game board
-        basePoints = BoardLogic.generateBasePoints(this.numTerritories, this.width, this.height);
+        basePoints = MapLogic.generateBasePoints(this.numTerritories, this.width, this.height);
         board = new int[this.height][this.width];
         ArrayList<Point>corners = getCorners();
-        BoardLogic.build(board, basePoints, corners);
+        MapLogic.build(board, basePoints, corners);
 
         //Retrieve list of edges and adjacency matrix for board
-        HashMap<String, int[][]> edgesAndAdjacency = BoardLogic.generateEdgesAndAdjacency(board, numTerritories);
-        adjacencyMatrix = edgesAndAdjacency.get(BoardLogic.adjacencyKey);
-        edges = edgesAndAdjacency.get(BoardLogic.edgeKey);
+        HashMap<String, int[][]> edgesAndAdjacency = MapLogic.generateEdgesAndAdjacency(board, numTerritories);
+        adjacencyMatrix = edgesAndAdjacency.get(MapLogic.adjacencyKey);
+        edges = edgesAndAdjacency.get(MapLogic.edgeKey);
 
         territories = new ArrayList<>();
         fillTerritories();

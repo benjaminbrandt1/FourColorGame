@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.Utils.Intents;
 
@@ -31,13 +31,13 @@ public class Multi_Fill_Claimed_Dif_Color_Test {
     public void fill_in_dif_color_region_multi_mode() throws Exception {
         int[] colors = new int[]{1, 2, 3, 4};
 
-        Board board = new Board(30, 540, 540, colors , context );
+        Map map = new Map(30, 540, 540, colors , context );
 
         Point p = new Point(300, 300);
 
-        board.colorTerritory(p, colors[0]);
+        map.colorTerritory(p, colors[0]);
 
-        boolean validMove = board.isValidMove(p, colors[2], Intents.multi);
+        boolean validMove = map.isValidMove(p, colors[2], Intents.multi);
         assertEquals(false, validMove);
     }
 }

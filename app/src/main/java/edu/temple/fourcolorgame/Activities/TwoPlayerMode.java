@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.GameLogic.Surface;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.R;
 import edu.temple.fourcolorgame.Utils.BoardStorage;
@@ -32,7 +32,7 @@ public class TwoPlayerMode extends AppCompatActivity {
     private int gameMode, skippedTurnCount;
     private int[] colors;
     private int currentColor;
-    private Board board;
+    private Map map;
     private Surface surface;
     private GameInformation gameInformation;
     private ArrayList<Button> colorButtons;
@@ -50,7 +50,7 @@ public class TwoPlayerMode extends AppCompatActivity {
         p1score = 0;
         p2score = 0;
 
-        //Determine the size of the board based on screen size
+        //Determine the size of the map based on screen size
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -64,10 +64,10 @@ public class TwoPlayerMode extends AppCompatActivity {
         colors = new int[4];
         getGameInformation();
 
-        board = ((BoardStorage)getApplication()).getBoard();
+        map = ((BoardStorage)getApplication()).getMap();
         surface = (Surface)findViewById(R.id.game_chart);
 
-        surface.setBitmap(board.createBitmap());
+        surface.setBitmap(map.createBitmap());
 
         surface.setLayoutParams(new android.widget.RelativeLayout.LayoutParams(width, height));
         surface.setOnTouchListener(new TwoPlayerMode.TwoPlayerModeListener());
@@ -124,7 +124,7 @@ public class TwoPlayerMode extends AppCompatActivity {
             turn.next();
             selectColor(turn.getTurn());
 
-            if(board.noMovesAvailable(colors[turn.getTurn()])){
+            if(map.noMovesAvailable(colors[turn.getTurn()])){
                 skippedTurnCount++;
                 Log.d("SkippedTurn", String.valueOf(skippedTurnCount));
                 nextTurn();
@@ -155,7 +155,7 @@ public class TwoPlayerMode extends AppCompatActivity {
     }
 
     /**
-     * Called when no moves are available or the board is filled
+     * Called when no moves are available or the map is filled
      * Displays a GameOverDialog
      */
     private void endGame(){
@@ -181,7 +181,7 @@ public class TwoPlayerMode extends AppCompatActivity {
 
     /*
    Listener for the Surface object displaying the map
-   This class handles user interaction with the view and passes the information to the model (in this case, the board)
+   This class handles user interaction with the view and passes the information to the model (in this case, the map)
     */
     private class TwoPlayerModeListener implements View.OnTouchListener {
         @Override
@@ -195,25 +195,25 @@ public class TwoPlayerMode extends AppCompatActivity {
                 return false;
             }
 
-            if(x >= board.getWidth() || y >= board.getHeight()){
+            if(x >= map.getWidth() || y >= map.getHeight()){
                 return false;
             }
 
-            if(board.isValidMove(click, currentColor, gameMode)){
+            if(map.isValidMove(click, currentColor, gameMode)){
                 if(turn.getTurn() <= 1) {
-                    p1score += board.colorTerritory(click, currentColor)/100;
+                    p1score += map.colorTerritory(click, currentColor)/100;
                     ((TextView)findViewById(R.id.human_score)).setText(String.valueOf(p1score));
                 } else {
-                    p2score += board.colorTerritory(click, currentColor)/100;
+                    p2score += map.colorTerritory(click, currentColor)/100;
                     ((TextView)findViewById(R.id.computer_score)).setText(String.valueOf(p2score));
                 }
-                surface.draw(board.createBitmap());
+                surface.draw(map.createBitmap());
                 nextTurn();
             } else {
                 Toast.makeText(TwoPlayerMode.this, getResources().getText(R.string.invalidMove), Toast.LENGTH_SHORT).show();
             }
 
-            if(board.isFilledOut()){
+            if(map.isFilledOut()){
                 endGame();
 
             }

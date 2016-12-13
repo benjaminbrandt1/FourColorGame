@@ -5,7 +5,7 @@ package edu.temple.fourcolorgame.GameLogic;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.MapModels.Territory;
 import edu.temple.fourcolorgame.Utils.Intents;
@@ -16,7 +16,7 @@ import edu.temple.fourcolorgame.Utils.Intents;
 //Chooses the largest territory possible, but avoids blocking territories that are safe
     //Safe territories are ones that the opponent cannot fill
 public class ComputerPlayerHard implements ComputerPlayer {
-    private Board board;
+    private Map map;
     private int selectedColor;
     private int[] colors;
     private int compsOtherColor;
@@ -27,8 +27,8 @@ public class ComputerPlayerHard implements ComputerPlayer {
 
     private ArrayList<Territory> territories;
 
-    public ComputerPlayerHard(Board board, int selectedColor, ArrayList<Territory> territories, int[] colors) {
-        this.board = board;
+    public ComputerPlayerHard(Map map, int selectedColor, ArrayList<Territory> territories, int[] colors) {
+        this.map = map;
         this.selectedColor = selectedColor;
         this.territories = territories;
         this.colors = colors;
@@ -56,13 +56,13 @@ public class ComputerPlayerHard implements ComputerPlayer {
         for(int i = possibleMoves.size() - 1; i>= 0; i--){
             Territory potential = possibleMoves.get(i);
             if(protectedMoves.contains(potential)){
-                if(!board.isValidMove(potential.getBase(), compsOtherColor, Intents.comp)){
+                if(!map.isValidMove(potential.getBase(), compsOtherColor, Intents.comp)){
                     dontBlockList.add(potential);
                 }
                 continue;
 
             }
-            for(Territory adjacent : board.getAdjacentTerritories(potential)){
+            for(Territory adjacent : map.getAdjacentTerritories(potential)){
                 if (dontBlockList.contains(adjacent)){
                     continue;
                 }
@@ -84,7 +84,7 @@ public class ComputerPlayerHard implements ComputerPlayer {
         boolean color2 = false;
         ArrayList<Territory> protectedMoves = new ArrayList<>();
         for(Territory move : moves){
-            for(Territory adjacent : board.getAdjacentTerritories(move)){
+            for(Territory adjacent : map.getAdjacentTerritories(move)){
                 if(adjacent.getColor() == colors[0]){
                     color1 = true;
                 } else if (adjacent.getColor() == colors[1]){
@@ -107,7 +107,7 @@ public class ComputerPlayerHard implements ComputerPlayer {
     private ArrayList<Territory> getPossibleMoves(){
         ArrayList<Territory> moves = new ArrayList<>();
         for(Territory potential : territories) {
-            if (board.isValidMove(potential.getBase(), selectedColor, Intents.comp)) {
+            if (map.isValidMove(potential.getBase(), selectedColor, Intents.comp)) {
                 moves.add(potential);
             }
         }

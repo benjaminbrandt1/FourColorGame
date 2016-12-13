@@ -11,7 +11,7 @@ import org.junit.runners.JUnit4;
 import java.util.ArrayList;
 
 import edu.temple.fourcolorgame.GameLogic.ComputerPlayerEasy;
-import edu.temple.fourcolorgame.MapModels.Board;
+import edu.temple.fourcolorgame.MapModels.Map;
 import edu.temple.fourcolorgame.MapModels.Point;
 import edu.temple.fourcolorgame.MapModels.Territory;
 
@@ -34,9 +34,9 @@ public class Easy_Comp_Next_Move {
     public void comp_easy_next_move() throws Exception {
         int[] colors = new int[]{1, 2, 3, 4};
 
-        Board board = new Board(30, 540, 540, colors , context );
+        Map map = new Map(30, 540, 540, colors , context );
 
-        ArrayList<Territory> territories = board.getTerritories();
+        ArrayList<Territory> territories = map.getTerritories();
 
         Territory max = territories.get(0);
 
@@ -47,11 +47,11 @@ public class Easy_Comp_Next_Move {
                 }
         }
 
-        ComputerPlayerEasy comp = new ComputerPlayerEasy(board, colors[1], territories);
+        ComputerPlayerEasy comp = new ComputerPlayerEasy(map, colors[1], territories);
 
         Point move = comp.getNextMove();
 
-        int moveSize = board.colorTerritory(move, colors[1]);
+        int moveSize = map.colorTerritory(move, colors[1]);
 
         assertEquals(max.getSize(), moveSize);
     }
